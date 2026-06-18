@@ -1,1 +1,62 @@
-/* You can add global styles to this file, and also import other style files */
+/* /* ==========================================================================
+   Warehouse 1 - Global Styles (styles.css)
+   ========================================================================== */
+
+/* 1. Universal Box Sizing 
+   This ensures that padding and borders are included in the element's total width and height.
+   It makes layout math much easier for the whole team! */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Body Reset and Typography 
+   Removes default browser margins and sets the global font and background for the app. */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7f6; /* The light gray background from your UI design */
+  color: #333333;            /* Standard dark text color for readability */
+}
+
+/* 3. Global Utilities 
+   Classes used everywhere in the app. For example, the red asterisk for required fields. */
+.required {
+  color: #d32f2f;
+  font-weight: bold;
+} */
+
+/* NOTE: Keep your specific container styles (like .form-card) and specific 
+  button styles inside your child components (add-stock-form.component.css, etc.). 
+  Angular is designed to keep component CSS encapsulated!
+*/
+/* ==========================================================================
+   Mobile Responsiveness (Screens smaller than 600px)
+   ========================================================================== */
+@media (max-width: 600px) {
+  
+  /* Give the card some breathing room from the edges of the phone screen */
+  .form-card {
+    padding: 20px;
+    margin: 15px;
+    width: auto; /* Overrides the 100% width to account for margins */
+  }
+
+  /* Make the title slightly smaller for mobile screens */
+  .form-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  /* Stack the buttons vertically instead of side-by-side */
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Make the buttons stretch the full width of the phone for easy tapping */
+  .btn {
+    width: 100%;
+  }
+}

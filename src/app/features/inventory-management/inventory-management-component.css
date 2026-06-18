@@ -1,0 +1,40 @@
+.inventory-page-wrapper {
+  padding: 32px;
+}
+
+/* Header Styling */
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e1e2f;
+  margin: 0 0 8px 0;
+}
+
+.page-subtitle {
+  color: #6b7280;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* =========================================
+   The Flexbox Layout System
+   ========================================= */
+.operations-container {
+  display: flex;
+  flex-wrap: wrap;         /* The magic rule that pushes the second form down on small screens */
+  gap: 32px;               /* Creates a wide, clean space between the two forms */
+  align-items: flex-start; /* Ensures the shorter form doesn't stretch vertically to match the taller one */
+}
+
+.operation-card {
+  /* flex-grow: 1 (Take up available space)
+     flex-shrink: 1 (Shrink if necessary)
+     flex-basis: 450px (Try to be at least 450px wide) 
+  */
+  flex: 1 1 450px;
+  min-width: 0; /* Prevents the forms from overflowing the screen on very small devices */
+}

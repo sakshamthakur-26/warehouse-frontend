@@ -1,0 +1,59 @@
+/* Tells Angular to make this component block-level so it plays nice with CSS Grid */
+:host {
+  display: block;
+  height: 100%;
+}
+
+.metric-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.border-left-red {
+  border-left: 4px solid #ef4444; 
+}
+
+.icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.icon-red { 
+  background-color: #fee2e2; 
+  color: #ef4444; 
+}
+
+.metric-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.metric-value {
+  margin: 4px 0 0 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.text-red { 
+  color: #ef4444; 
+}
