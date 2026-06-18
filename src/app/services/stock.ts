@@ -11,7 +11,7 @@ export class Stock {
 
   private apiURL = `${environment.apiURL}/api/stock`;
 
-  public stockItem:Signal<StockItem[]> = signal<StockItem[]>([]);
+  public stockItem:WritableSignal<StockItem[]> = signal<StockItem[]>([]);
   constructor(private http: HttpClient) {
 
   }
@@ -20,7 +20,7 @@ export class Stock {
     this.http.get<StockItem[]>(this.apiURL).subscribe({
       next: (data) => {
         
-        this.stockItem.update(data);
+        this.stockItem.update(()=>data);
       },
       error: (err) => console.error('Error fetching stock', err)
     });
