@@ -9,7 +9,7 @@ import { StockItem } from '../models/stock-item';
 })
 export class Stock {
 
-  private apiURL = `${environment.apiURL}/api/stock`;
+  private apiURL = `${environment.apiURL}/api/StockItems`;
 
   public stockItem:WritableSignal<StockItem[]> = signal<StockItem[]>([]);
   constructor(private http: HttpClient) {
@@ -17,8 +17,10 @@ export class Stock {
   }
   loadAllStock(): void {
     // We do the one-time subscription here in the service
+    console.log('Fetching stock data from API...');
     this.http.get<StockItem[]>(this.apiURL).subscribe({
       next: (data) => {
+        alert('Stock data loaded successfully!');
         
         this.stockItem.update(()=>data);
       },
