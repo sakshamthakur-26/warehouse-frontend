@@ -18,6 +18,8 @@ export class Vendor {
 
   onCategoryChange(SelectedCategory:string): void {
 
+    console.log('Selected Category:', SelectedCategory); // Debug log to check the selected category
+
     this.http.get<Array<string>>(`${this.apiURL}/category/${SelectedCategory}`).subscribe({
 
       next: (data)=> {

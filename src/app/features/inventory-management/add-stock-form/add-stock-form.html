@@ -4,8 +4,8 @@
   <form class="stock-form" (ngSubmit)="addStock()">
     <div class="form-group">
       <label for="itemName">Item Name <span class="required">*</span></label>
-      <input type="text" id="itemName" name="itemName" [(ngModel)]="_inventory._stockService.AddStockItem().itemName"
-        (ngModelChange)="_inventory._stockService.AddStock.update(s=>({...s,itemName: $event}))"
+      <input type="text" id="itemName" name="itemName" [ngModel]="_inventory._stockService.AddStockItem().itemName"
+        (ngModelChange)="_inventory._stockService.AddStockItem.update(s=>({...s,itemName: $event}))"
         placeholder="Enter item name">
     </div>
 
@@ -13,15 +13,15 @@
       <label for="quantity">Quantity <span class="required">*</span></label>
       <input type="number" min="1" id="quantity" name="quantity"
         [(ngModel)]="_inventory._stockService.AddStockItem().quantity"
-        (ngModelChange)="_inventory._stockService.AddStock.update(s=>({...s,quantity: $event}))"
+        (ngModelChange)="_inventory._stockService.AddStockItem.update(s=>({...s,quantity: $event}))"
         placeholder="Enter quantity">
     </div>
 
     <div class="form-group">
       <label for="Category">Category <span class="required">*</span></label>
-      <select id="category" name="category" [(ngModel)]="_inventory._stockService.AddStockItem().category"
+      <select id="category" name="category" [ngModel]="_inventory._stockService.AddStockItem().CategoryName"
         (change)="onCategoryChange($any($event.target).value)"
-        (ngModelChange)="_inventory._stockService.AddStock.update(s=>({...s,category: $event}))">
+        (ngModelChange)="_inventory._stockService.AddStockItem.update(s=>({...s,CategoryName: $event}))">
         <option value="" disabled selected>Select Category</option>
 
         @for(item of _categories.CategoriesName(); track $index) {
@@ -34,8 +34,8 @@
 
     <div class="form-group">
       <label for="vendor">Select Vendor</label>
-      <select id="vendor" name="vendor" [(ngModel)]="_inventory._stockService.AddStockItem().vendor"
-        (ngModelChange)="_inventory._stockService.AddStock.update(s=>({...s,vendor: $event}))">
+      <select id="vendor" name="vendor" [ngModel]="_inventory._stockService.AddStockItem().VendorName"
+        (ngModelChange)="_inventory._stockService.AddStockItem.update(s=>({...s,VendorName: $event}))">
         <option value="" disabled selected>Select Vendor</option>
 
         @for(vendor of _vendor._filteredVendorName(); track $index) {
@@ -49,8 +49,8 @@
     <div class="form-group">
       <label for="lowStock">Low Stock Alert Threshold <span class="required">*</span></label>
       <input type="number" min="1" id="lowStock" name="lowStock" value="10"
-        [(ngModel)]="_inventory._stockService.AddStockItem().threshold"
-        (ngModelChange)="_inventory._stockService.AddStock.update(s=>({...s,threshold: $event}))">
+        [ngModel]="_inventory._stockService.AddStockItem().threshold"
+        (ngModelChange)="_inventory._stockService.AddStockItem.update(s=>({...s,threshold: $event}))">
     </div>
 
     <div class="form-actions">

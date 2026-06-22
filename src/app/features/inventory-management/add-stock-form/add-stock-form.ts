@@ -39,6 +39,10 @@ export class AddStockForm {
       this._inventory._stockService.addStock();
   }
 
+  resetForm() : void {
+    this._inventory._stockService.resetAddStockItem();
+  }
+
 
   
   

@@ -1,7 +1,7 @@
 export interface AddStock {
     itemName:string,
-    category:string,
-    vendor:string,
+    CategoryName:string,
+    VendorName:string,
     quantity:number,
     threshold?:number
 }

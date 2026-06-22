@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { StockItem } from '../models/stock-item';
 import { AddStock } from '../models/add-stock';
+import { RemoveStock } from '../models/remove-stock';
 
 
 @Injectable({
@@ -16,11 +17,18 @@ export class Stock {
 
   public AddStockItem = signal<AddStock>({
     itemName:'',
-    category:'',
-    vendor:'',
+    CategoryName:'',
+    VendorName:'',
     quantity:0,
     threshold:0
   });
+
+
+  public RemoveStockItem = signal<RemoveStock>({
+    itemId: 0,
+    quantity: 0
+});
+
   constructor(private http: HttpClient) {
 
   }
@@ -48,6 +56,7 @@ export class Stock {
       next: (data) => {
         alert('Stock added successfully!');
         this.loadAllStock(); // again show the fupdated stock table after adding new stock
+        this.resetAddStockItem();
       },
       error: (err) => console.error('Error adding stock', err)
     });
@@ -56,12 +65,30 @@ export class Stock {
   resetAddStockItem() {
     this.AddStockItem.set({
       itemName:'',
-      category:'',
-      vendor:'',
+      CategoryName:'',
+      VendorName:'',
       quantity:0,
       threshold:0
     });
   }
+
+
+  dispatchStock(): void {
+  
+    this.http.patch(`${this.apiURL}/dispatch`, this.RemoveStockItem()).subscribe({
+        next: (response) => {
+            alert('Stock successfully dispatched!');
+            this.loadAllStock(); 
+            
+           
+            this.RemoveStockItem.set({ itemId: 0, quantity: 0 }); 
+        },
+        error: (err) => {
+            console.error('Error dispatching stock', err);
+            alert(err.error || 'Failed to dispatch stock.');
+        }
+    });
+}
 
 
 
