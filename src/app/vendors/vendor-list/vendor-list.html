@@ -1,1 +1,119 @@
-<p>vendor-list works!</p>
+<div class="page">
+
+  <div class="top-card">
+    <div class="top-row">
+      <div class="title-wrap">
+        <h2>Vendor Management</h2>
+        <div class="summary">{{ activeCount }} active vendors out of {{ totalCount }} total</div>
+      </div>
+      <div>
+        <button class="add-btn" (click)="openModal()">+ Add Vendor</button>
+      </div>
+    </div>
+
+    <div class="search-card">
+      <div class="search-box">
+        <span class="icon"></span>
+        <input type="text" [(ngModel)]="searchText" placeholder="Search vendors by name, ID, or contact person...">
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="list-card">
+    <div class="list-inner">
+      <table>
+    <thead>
+      <tr>
+        <th>VendorID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>PhoneNumber</th>
+        <th>GoodSupplied</th>
+        <th>Status</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let v of filteredVendors()">
+        <td>{{ v.vendorId }}</td>
+        <td>{{ v.name }}</td>
+        <td>{{ v.email }}</td>
+        <td>{{ v.phoneNumber }}</td>
+        <td>{{ v.goodsSupplied }}</td>
+        <td>
+          <span [class.active]="v.isActive">
+            {{ v.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+        <td>
+          <button class="edit-btn" (click)="openEditModal(v)">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!--  MODAL -->
+<div class="overlay" *ngIf="showModal">
+
+  <div class="modal">
+
+    <h2>Add New Vendor</h2>
+
+    <div *ngIf="formError" class="form-error">{{ formError }}</div>
+
+    <!--  Vendor ID -->
+    <div class="form-group">
+      <input type="text" [value]="editMode && newVendor.vendorId ? newVendor.vendorId : getNextVendorId()" disabled>
+      <label>Vendor ID</label>
+    </div>
+
+    <!-- Name -->
+    <div class="form-group">
+      <input [(ngModel)]="newVendor.name" required placeholder=" ">
+      <label>Name</label>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <input [(ngModel)]="newVendor.email" placeholder=" ">
+      <label>Email</label>
+      <div *ngIf="fieldErrors.email" class="field-error">{{ fieldErrors.email }}</div>
+    </div>
+
+    <!-- Phone -->
+    <div class="form-group">
+      <input [(ngModel)]="newVendor.phoneNumber" placeholder=" ">
+      <label>Phone Number</label>
+      <div *ngIf="fieldErrors.phoneNumber" class="field-error">{{ fieldErrors.phoneNumber }}</div>
+    </div>
+
+    <!-- Goods -->
+    <div class="form-group">
+      <input [(ngModel)]="newVendor.goodsSupplied" placeholder=" ">
+      <label>Goods Supplied</label>
+    </div>
+
+    <!--  IsActive -->
+    <div class="form-group">
+      <select [(ngModel)]="newVendor.isActive">
+        <option [ngValue]="true">Yes</option>
+        <option [ngValue]="false">No</option>
+      </select>
+      <label>Is Active</label>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="modal-actions">
+      <button class="cancel" (click)="closeModal()">Cancel</button>
+      <button class="add" (click)="saveVendor()">{{ editMode ? 'Save' : 'Add' }}</button>
+    </div>
+
+  </div>
+
+</div>
