@@ -4,12 +4,13 @@ import { RemoveStockForm } from './features/inventory-management/remove-stock-fo
 import { AddStockForm } from './features/inventory-management/add-stock-form/add-stock-form';
 import { DashboardComponent } from './features/dashboard/dashboard-component';
 import { Sidebar } from './features/sidebar/sidebar';
+import { TransactionsComponent } from './features/transactions/transactions';
 
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RemoveStockForm, AddStockForm,DashboardComponent,Sidebar],
+  imports: [RouterOutlet, RemoveStockForm, AddStockForm,DashboardComponent,Sidebar,TransactionsComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
