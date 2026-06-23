@@ -5,24 +5,26 @@
     <div class="form-group">
       <label for="dispatchItem">Select Item to Dispatch</label>
 
-      <select id="dispatchItem" [ngModel]="_stockService.RemoveStock().itemId"
-        (ngModelChange)="_stockService.RemoveStock.update(s => ({...s, itemId: $event}))">
-        <option value="0" disabled selected>Select an Item...</option>
-        @for(item of _stockService.loadAllStock(); track item.itemId) {
-        <option [value]="item.itemId">
+      <select
+       id="dispatchItem" 
+       name="itemID"
+       [ngModel]="_stockService.RemoveStockItem().itemId"
+        (ngModelChange)="onItemChange($event)">
+        <option [ngValue]=0 disabled selected>Select an Item...</option>
+        @for(item of _stockService.stockItem(); track item.itemId) {
+        <option [ngValue]="item.itemId">
           {{item.name}} (Available: {{item.quantity}})
         </option>
         }
       </select>
     </div>
-
     <div class="form-group">
       <label for="dispatchQty">Quantity to Remove</label>
-      <input type="number" id="dispatchQty" [ngModel]="_stockService.RemoveStock().quantity"
-        (ngModelChange)="_stockService.RemoveStock.update(s => ({...s, quantity: $event}))" />
+      <input type="number" id="dispatchQty" [ngModel]="_stockService.RemoveStockItem().quantity"
+        (ngModelChange)="_stockService.RemoveStockItem.update(s => ({...s, quantity: $event}))" name="quantity" />
     </div>
 
-    <button (click)="_stockService.dispatchStock()" class="btn-submit">
+    <button (click)="RemoveStock()" class="btn-submit">
       Dispatch Stock
     </button>
   </form>

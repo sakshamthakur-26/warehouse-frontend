@@ -16,16 +16,9 @@ export class AddStockForm {
   constructor(public _categories:Category,public _vendor:Vendor,public _inventory:InventoryManagementComponent){}
 
 
-  // stock: AddStock = {
-  //     itemName:'',
-  //     category:'',
-  //     vendor:'',
-  //     quantity:0,
-  //     threshold:0
-  // }
   
 
-  //load categories name
+  //load categories                                                                                                                                                                                                                                                                  name
   ngOnInit():void {
     this._categories.loadAllCategories();
   }

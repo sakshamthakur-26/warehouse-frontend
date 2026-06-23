@@ -43,6 +43,8 @@ export class Stock {
     this.http.get<StockItem[]>(this.apiURL).subscribe({
       next: (data) => {
         alert('Stock data loaded successfully!');
+
+        console.log('Received stock data:', data);
         
         this.stockItem.update(()=>data);
       },
@@ -78,7 +80,7 @@ export class Stock {
     this.http.patch(`${this.apiURL}/dispatch`, this.RemoveStockItem()).subscribe({
         next: (response) => {
             alert('Stock successfully dispatched!');
-            this.loadAllStock(); 
+           
             
            
             this.RemoveStockItem.set({ itemId: 0, quantity: 0 }); 
