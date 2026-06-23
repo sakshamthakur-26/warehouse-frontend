@@ -39,7 +39,9 @@ export class TransactionsComponent implements OnInit {
 }
   // ✅ INIT
   ngOnInit() {
+    console.log("TransactionsComponent initialized");
     this.loadAll();
+    
 
     this.api.getVendors().subscribe((data: any) => {
       this.vendors = data?.data || data;

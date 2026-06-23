@@ -1,16 +1,12 @@
 <div class="form-card">
   <h2 class="form-title">Dispatch / Remove Stock</h2>
 
-  <form class="stock-form">
+  <form class="stock-form" [formGroup]="dispatchForm" (ngSubmit)="RemoveStock()">
     <div class="form-group">
       <label for="dispatchItem">Select Item to Dispatch</label>
 
-      <select
-       id="dispatchItem" 
-       name="itemID"
-       [ngModel]="_stockService.RemoveStockItem().itemId"
-        (ngModelChange)="onItemChange($event)">
-        <option [ngValue]=0 disabled selected>Select an Item...</option>
+      <select id="dispatchItem" name="itemID" formControlName="itemId">
+        <option [ngValue]="0" disabled selected>Select an Item...</option>
         @for(item of _stockService.stockItem(); track item.itemId) {
         <option [ngValue]="item.itemId">
           {{item.name}} (Available: {{item.quantity}})
@@ -20,11 +16,15 @@
     </div>
     <div class="form-group">
       <label for="dispatchQty">Quantity to Remove</label>
-      <input type="number" id="dispatchQty" [ngModel]="_stockService.RemoveStockItem().quantity"
-        (ngModelChange)="_stockService.RemoveStockItem.update(s => ({...s, quantity: $event}))" name="quantity" />
+      <input type="number" id="dispatchQty" formControlName="quantity" />
+      @if (dispatchForm.get('quantity')?.hasError('max') && dispatchForm.get('quantity')?.touched) {
+      <span style="color: red; font-size: 14px; display: block; margin-top: 5px;">
+        Insufficient quantity available!
+      </span>
+      }
     </div>
 
-    <button (click)="RemoveStock()" class="btn-submit">
+    <button [disabled]="dispatchForm.invalid" class="btn-submit">
       Dispatch Stock
     </button>
   </form>

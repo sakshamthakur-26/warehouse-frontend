@@ -1,59 +1,66 @@
-/* Tells Angular to make this component block-level so it plays nice with CSS Grid */
-:host {
-  display: block;
-  height: 100%;
+/* 1. Make the card a positioning anchor */
+.tooltip-container {
+  position: relative;
+  cursor: pointer; /* Changes the mouse to a hand to imply interactivity */
 }
 
-.metric-card {
-  background-color: #ffffff;
+/* 2. Hide the tooltip by default and style it */
+.tooltip-content {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 105%; /* Puts it right below the card */
+  left: 50%;
+  transform: translateX(-50%); /* Centers it perfectly */
+  background-color: #1e293b; /* Dark sleek background */
+  color: #f8fafc;
+  padding: 12px;
   border-radius: 8px;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  border: 1px solid #f0f0f0;
-  height: 100%;
-  box-sizing: border-box;
+  width: max-content;
+  min-width: 200px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-.border-left-red {
-  border-left: 4px solid #ef4444; 
+/* 3. The Hover Trigger - Make it visible! */
+.tooltip-container:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
 }
 
-.icon-wrapper {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
+/* 4. A cool little triangle pointing up to the card */
+.tooltip-content::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #1e293b transparent;
 }
 
-.icon-red { 
-  background-color: #fee2e2; 
-  color: #ef4444; 
+/* 5. Clean up the text inside */
+.tooltip-content h4 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 4px;
 }
 
-.metric-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.metric-label {
+.tooltip-content ul {
+  list-style: none;
+  padding: 0;
   margin: 0;
+}
+
+.tooltip-content li {
   font-size: 14px;
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.metric-value {
-  margin: 4px 0 0 0;
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.text-red { 
-  color: #ef4444; 
+  padding: 4px 0;
+  display: flex;
+  justify-content: space-between;
 }

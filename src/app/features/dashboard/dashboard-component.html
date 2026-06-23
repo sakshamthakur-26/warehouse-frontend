@@ -12,7 +12,7 @@
       </div>
       <div class="metric-info">
         <p class="metric-label">Total Items</p>
-        <h3 class="metric-value">1,248</h3>
+        <h3 class="metric-value">{{ dashboardService.summaryData()?.totalStockItems ?? 0 }}</h3>
       </div>
     </div>
 
@@ -24,7 +24,7 @@
       </div>
       <div class="metric-info">
         <p class="metric-label">Total Zones</p>
-        <h3 class="metric-value">8</h3>
+        <h3 class="metric-value">{{ dashboardService.summaryData()?.totalZones ?? 0 }}</h3>
       </div>
     </div>
 
@@ -34,7 +34,7 @@
       </div>
       <div class="metric-info">
         <p class="metric-label">Active Vendors</p>
-        <h3 class="metric-value">24</h3>
+        <h3 class="metric-value">{{ dashboardService.summaryData()?.totalActiveVendors ?? 0 }}</h3>
       </div>
     </div>
 

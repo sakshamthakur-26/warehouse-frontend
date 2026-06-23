@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Zones } from '../../../models/zones';
+
 
 @Component({
   selector: 'app-add-zone',
@@ -13,11 +14,10 @@ import { Zones } from '../../../models/zones';
   styleUrl: './add-zone.css',
 })
 export class AddZone implements OnInit {
-
   z: Zones = new Zones();
   zones: any[] = [];
 
-  errorMessage: string = ""
+  errorMessage: string = '';
 
   searchText: string = '';
   showModal: boolean = false;
@@ -25,7 +25,7 @@ export class AddZone implements OnInit {
   constructor(
     private client: HttpClient,
     private router: Router,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -33,47 +33,38 @@ export class AddZone implements OnInit {
   }
 
   loadZone() {
-    this.client.get<any[]>("http://localhost:5281/api/Zones")
-      .subscribe({
-        next: (data) => {
-          this.zones = data;
-          this.cd.detectChanges();
-        },
-        error: () => {
-          this.zones = [];
-        }
-      });
+    console.log('Loading zones...');
+    this.client.get<any[]>('http://localhost:5281/api/Zones').subscribe({
+      next: (data) => {
+        console.log('Zones data:', data);
+        this.zones = data;
+        this.cd.detectChanges();
+      },
+      error: () => {
+        this.zones = [];
+      },
+    });
   }
 
-
-
-  
-  
   isValidZoneName(name: string): boolean {
     const value = name.trim();
     return /^[A-Za-z]+( ?[A-Za-z]+)?$/.test(value);
   }
 
-
   addZone() {
+    //  VALIDATION: Capacity limit
 
-    
-    
+    if (this.z.maxcapacity > 5000) {
+      this.errorMessage = 'Capacity cannot exceed 5000 units';
+      return;
+    }
 
-  //  VALIDATION: Capacity limit
+    //  Clear previous error
+    this.errorMessage = '';
 
-  if (this.z.maxcapacity > 5000) {
-    this.errorMessage = "Capacity cannot exceed 5000 units";
-    return;
-  }
-
-  //  Clear previous error
-  this.errorMessage = "";
-
-  this.client.post("http://localhost:5281/api/Zones", this.z)
-    .subscribe({
+    this.client.post('http://localhost:5281/api/Zones', this.z).subscribe({
       next: () => {
-        alert("Zone added successfully");
+        alert('Zone added successfully');
 
         this.z = new Zones();
 
@@ -81,13 +72,13 @@ export class AddZone implements OnInit {
       },
       error: (error) => {
         if (error.status === 409) {
-          this.errorMessage = "Zone already exists";
+          this.errorMessage = 'Zone already exists';
         } else {
-          this.errorMessage = "Something went wrong";
+          this.errorMessage = 'Something went wrong';
         }
-      }
+      },
     });
-}
+  }
 
   editZone(zone: any) {
     this.z.name = zone.name;
@@ -101,18 +92,16 @@ export class AddZone implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 
-  
-formatZoneName() {
-  if (!this.z.name) return;
+  formatZoneName() {
+    if (!this.z.name) return;
 
-  let val = this.z.name.trim().toLowerCase();
+    let val = this.z.name.trim().toLowerCase();
 
-  // convert "zone a"
-  if (val.startsWith('zone')) {
-    val = 'Zone ' + val.replace('zone', '').trim().toUpperCase();
+    // convert "zone a"
+    if (val.startsWith('zone')) {
+      val = 'Zone ' + val.replace('zone', '').trim().toUpperCase();
+    }
+
+    this.z.name = val;
   }
-
-  this.z.name = val;
-}
-
 }

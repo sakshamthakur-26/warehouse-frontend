@@ -6,31 +6,24 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class Vendor {
+  private apiURL = `${environment.apiURL}/api/Vendors`;
+  public _filteredVendorName: WritableSignal<Array<string>> = signal<Array<string>>([]);
 
-    private apiURL = `${environment.apiURL}/api/Vendors`;
-     public _filteredVendorName :WritableSignal<Array<string>> = signal<Array<string>>([]);
-
-  constructor(public http:HttpClient) {
-
-  }
+  constructor(public http: HttpClient) {}
 
   //For load VendorName by Categories
 
-  onCategoryChange(SelectedCategory:string): void {
-
+  onCategoryChange(SelectedCategory: string): void {
     console.log('Selected Category:', SelectedCategory); // Debug log to check the selected category
 
     this.http.get<Array<string>>(`${this.apiURL}/category/${SelectedCategory}`).subscribe({
-
-      next: (data)=> {
-        console.log(data);
-        this._filteredVendorName.set(data)
+      next: (data) => {
+        this._filteredVendorName.set(data);
         console.log(this._filteredVendorName());
       },
       error: (err) => {
-        console.error("Error fetching VendorName",err);
-      }
+        console.error('Error fetching VendorName', err);
+      },
     });
-
   }
 }

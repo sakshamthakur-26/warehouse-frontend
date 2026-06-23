@@ -12,6 +12,7 @@ export class ApiService {
 
   // ✅ Get all transactions
   getTransactions() {
+    console.log("Fetching all transactions from API...");
     return this.http.get(`${this.baseUrl}/transactions`);
   }
 

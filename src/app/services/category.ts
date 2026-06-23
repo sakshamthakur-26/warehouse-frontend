@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { environment } from '../../environments/environment.development';
+import { CreateCategoryPayload } from '../models/create-category-payload';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +33,12 @@ export class Category {
     });
 
 
+  }
+
+  async createCategory(payload: CreateCategoryPayload): Promise<void> {
+    await firstValueFrom(
+      this.http.post(this.apiURL, payload)
+    );
   }
 
    
