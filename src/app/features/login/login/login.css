@@ -1,0 +1,153 @@
+/* =========================
+   Layout Container
+========================= */
+
+.auth-container {
+  height: 100vh;
+  background-color: #edf4ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================
+   Login Card
+========================= */
+
+.auth-card {
+  width: 360px;
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.05),
+    0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   Branding / Header
+========================= */
+
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.auth-card h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+/* =========================
+   Form Layout
+========================= */
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* =========================
+   Input Fields
+========================= */
+
+.form-box input {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #ffffff;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Focus state */
+.form-box input:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* =========================
+   Submit Button
+========================= */
+
+.login-btn {
+  margin-top: 4px;
+  padding: 12px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  border: none;
+  border-radius: 10px;
+
+  background-color: #2563eb;
+  color: #ffffff;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+
+  transition: background-color 0.2s ease,
+              transform 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+/* Hover state */
+.login-btn:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+}
+
+/* Disabled state (optional future use) */
+.login-btn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =========================
+   Bottom Text
+========================= */
+
+.bottom-text {
+  margin-top: 18px;
+  font-size: 13px;
+  color: #374151;
+}
+
+.bottom-text a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Hover for link */
+.bottom-text a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   Error Message (Optional)
+========================= */
+
+.error {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #ef4444;
+}
