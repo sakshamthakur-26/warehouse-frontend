@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AddStockForm } from './add-stock-form/add-stock-form';
 import { RemoveStockForm } from './remove-stock-form/remove-stock-form';
+import { Stock } from '../../services/stock';
 
 @Component({
   selector: 'app-inventory-management-component',
@@ -8,4 +9,7 @@ import { RemoveStockForm } from './remove-stock-form/remove-stock-form';
   templateUrl: './inventory-management-component.html',
   styleUrl: './inventory-management-component.css',
 })
-export class InventoryManagementComponent {}
+export class InventoryManagementComponent {
+
+  constructor(public _stockService:Stock ){}
+}
