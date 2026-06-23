@@ -16,7 +16,7 @@
       <span class="text">Inventory</span>
     </a>
     
-    <a routerLink="/zones" routerLinkActive="active-link" class="nav-item">
+    <a routerLink="zones" routerLinkActive="active-link" class="nav-item">
       <span class="icon">📍</span>
       <span class="text">Zones</span>
     </a>
@@ -37,6 +37,16 @@
       <span class="icon">⚙️</span>
       <span class="text">Settings</span>
     </a>
+
+    
+<!--  LOGOUT BUTTON -->
+  <button class="nav-item logout-btn" (click)="logout()">
+    <span class="icon">🚪</span>
+    <span class="text">Logout</span>
+  </button>
+
   </div>
+
+  
 
 </aside>

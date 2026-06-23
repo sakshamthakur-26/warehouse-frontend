@@ -1,25 +1,31 @@
 <div class="form-card">
   <h2 class="form-title">Dispatch / Remove Stock</h2>
-  
+
   <form class="stock-form">
     <div class="form-group">
-      <label for="removeItemName">Select Item to Dispatch <span class="required">*</span></label>
-      <select id="removeItemName" name="removeItemName">
-        <option value="" disabled selected>Select an item from inventory...</option>
-        <option value="1">Laptops</option>
-        <option value="2">Office Chairs</option>
-        <option value="3">Wireless Mice</option>
+      <label for="dispatchItem">Select Item to Dispatch</label>
+
+      <select
+       id="dispatchItem" 
+       name="itemID"
+       [ngModel]="_stockService.RemoveStockItem().itemId"
+        (ngModelChange)="onItemChange($event)">
+        <option [ngValue]=0 disabled selected>Select an Item...</option>
+        @for(item of _stockService.stockItem(); track item.itemId) {
+        <option [ngValue]="item.itemId">
+          {{item.name}} (Available: {{item.quantity}})
+        </option>
+        }
       </select>
     </div>
-
     <div class="form-group">
-      <label for="removeQuantity">Quantity to Dispatch <span class="required">*</span></label>
-      <input type="number" id="removeQuantity" name="removeQuantity" placeholder="Enter quantity">
+      <label for="dispatchQty">Quantity to Remove</label>
+      <input type="number" id="dispatchQty" [ngModel]="_stockService.RemoveStockItem().quantity"
+        (ngModelChange)="_stockService.RemoveStockItem.update(s => ({...s, quantity: $event}))" name="quantity" />
     </div>
 
-    <div class="form-actions">
-      <button type="button" class="btn btn-cancel">Cancel</button>
-      <button type="submit" class="btn btn-danger">Dispatch Stock</button>
-    </div>
+    <button (click)="RemoveStock()" class="btn-submit">
+      Dispatch Stock
+    </button>
   </form>
 </div>

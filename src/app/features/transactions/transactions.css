@@ -1,0 +1,195 @@
+/* ✅ PAGE STYLING */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* ✅ TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+/* ✅ INBOUND (GREEN) */
+.inbound {
+  background-color: #d4edda;
+  color: #155724;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 4px 8px;
+}
+
+/* ✅ TOP HEADER BAR */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #ffffff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ✅ TITLE CENTER ALIGN */
+.top-bar h2 {
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;
+  font-weight: 600;
+}
+
+/* ✅ BACK BUTTON */
+.back-btn {
+  background-color: transparent;
+  color: #3498db;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
+/* ✅ OUTBOUND (BLUE) */
+.outbound {
+  background-color: #cce5ff;
+  color: #004085;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 4px 8px;
+}
+
+.back-btn {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background-color: #5a6268;
+}
+
+th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+/* ✅ BUTTONS */
+button {
+  padding: 6px 12px;
+  margin: 5px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #3498db;
+  color: white;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #2c80b4;
+}
+
+/* ✅ FILTERS */
+input, select {
+  padding: 6px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* ✅ TYPE BUTTONS */
+button:nth-child(1),
+button:nth-child(2),
+button:nth-child(3) {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+button:nth-child(1):hover,
+button:nth-child(2):hover,
+button:nth-child(3):hover {
+  background-color: #cfcfcf;
+}
+
+/* ✅ POPUP OVERLAY */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+/* ✅ POPUP BOX */
+.popup {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 60%;
+  max-height: 80%;
+  overflow-y: auto;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+  animation: popupFade 0.3s ease;
+}
+
+/* ✅ ANIMATION */
+@keyframes popupFade {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ✅ POPUP CLOSE BUTTON */
+.close-btn {
+  float: right;
+  background: #e74c3c;
+}
+
+.close-btn:hover {
+  background: #c0392b;
+}
+
+/* ✅ ITEM BUTTON */
+td button {
+  background-color: #ecf0f1;
+  color: black;
+  border: 1px solid #ccc;
+}
+
+td button:hover {
+  background-color: #d0d7de;
+}
+
+/* ✅ HEADER */
+h2 {
+  margin-bottom: 15px;
+}

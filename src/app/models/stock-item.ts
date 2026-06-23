@@ -1,5 +1,7 @@
+import { NonNullableFormBuilder } from "@angular/forms";
+
 export interface StockItem {
-    itemID:string,
+    itemId:number,
     name:string,
     category:string,
     zone:string,
