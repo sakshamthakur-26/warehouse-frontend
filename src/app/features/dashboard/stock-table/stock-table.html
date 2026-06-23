@@ -8,6 +8,7 @@
     <table class="inventory-table">
       <thead>
         <tr>
+          <th>Item Id</th>
           <th>Item Name</th>
           <th>Category</th>
           <th>Quantity</th>
@@ -16,8 +17,9 @@
         </tr>
       </thead>
       <tbody>
-        @for (item of _stockService.stockItem(); track item.itemID) {
+        @for (item of _stockService.stockItem(); track item.itemId) {
           <tr>
+            <td class="font-medium">{{item.itemId}}</td>
             <td class="font-medium">{{item.name}}</td>
             <td class="text-gray">{{item.category}}</td>
             <td>{{item.quantity}}</td>
