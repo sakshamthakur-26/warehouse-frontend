@@ -1,0 +1,38 @@
+<div class="auth-container">
+
+  <div class="auth-card">
+
+    <!-- Header -->
+    <h2>Register</h2>
+    <p class="subtitle">
+      Create your account to access the system
+    </p>
+
+    <!-- Form -->
+    <form (ngSubmit)="register()" class="form-box">
+
+      <!-- Name -->
+      <input [(ngModel)]="user.name" name="name" placeholder="Full Name" required>
+
+      <!-- Username -->
+      <input [(ngModel)]="user.username" name="username" placeholder="Username" required>
+
+      <!-- Password -->
+      <input [(ngModel)]="user.password" name="password" type="password" placeholder="Password" required>
+
+      <!-- Button -->
+      <button type="submit" class="login-btn">
+        Register
+      </button>
+
+    </form>
+
+    <!-- Navigation -->
+    <p class="bottom-text">
+      Already have an account?
+      <a routerLink="/login">Login</a>
+    </p>
+
+  </div>
+
+</div>

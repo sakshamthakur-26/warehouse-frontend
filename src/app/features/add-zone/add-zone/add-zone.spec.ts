@@ -1,17 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddStockForm } from './add-stock-form';
+import { AddZone } from './add-zone';
 
-describe('AddStockForm', () => {
-  let component: AddStockForm;
-  let fixture: ComponentFixture<AddStockForm>;
+
+
+describe('AddZone', () => {
+  let component: AddZone;
+  let fixture: ComponentFixture<AddZone>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddStockForm],
+      imports: [AddZone ],
     }).compileComponents();
+    
 
-    fixture = TestBed.createComponent(AddStockForm);
+    fixture = TestBed.createComponent(AddZone);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -19,4 +22,7 @@ describe('AddStockForm', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+
+
 });

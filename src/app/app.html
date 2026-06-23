@@ -1,17 +1,15 @@
-<!-- <div class="stock-dashboard-wrapper">
-  <app-add-stock-form class="flex-card"></app-add-stock-form>
-  
-  <app-remove-stock-form class="flex-card"></app-remove-stock-form>
-</div> -->
+@if (isLoggedIn()) {
 
+  <div class="app-layout">
+    <app-sidebar></app-sidebar>
 
-<div class="app-layout">
-  
-  <app-sidebar></app-sidebar>
-  
-  <main class="main-content">
-    
-    <router-outlet></router-outlet>
-  </main>
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 
-</div>
+} @else {
+
+  <router-outlet></router-outlet>
+
+}
