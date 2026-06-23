@@ -1,0 +1,55 @@
+.form-container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* FORM GROUP */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* INPUT + SELECT SAME STYLE */
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* BUTTON */
+.save-btn {
+  width: 100%;
+  margin-top: 10px;
+  background: linear-gradient(90deg, #4a6cf7, #6e8efb);
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* BUTTON HOVER */
+.save-btn:hover {
+  opacity: 0.9;
+}
+
+/* ERROR BOX */
+.error-box {
+  background: #fdeaea;
+  color: red;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
