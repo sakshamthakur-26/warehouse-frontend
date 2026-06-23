@@ -1,0 +1,138 @@
+<!-- ✅ HEADER BAR -->
+<div class="top-bar">
+
+  <button class="back-btn" (click)="goToDashboard()">
+    ← Back
+  </button>
+
+  <h2>Transaction History</h2>
+
+</div>
+
+<!-- ✅ SEARCH -->
+<input type="text" placeholder="Search by Transaction ID" [(ngModel)]="searchId" (input)="applyAllFilters()" />
+
+<input type="text" placeholder="Search by Item ID" [(ngModel)]="searchItem" (input)="applyAllFilters()" />
+
+<!-- ✅ DATE FILTER -->
+<div>
+  <input type="date" [(ngModel)]="startDate" />
+  <input type="date" [(ngModel)]="endDate" />
+  <button (click)="applyAllFilters()">Apply</button>
+</div>
+
+<!-- ✅ TYPE FILTER -->
+<div>
+  <button (click)="selectedType=''; applyAllFilters()">All</button>
+  <button (click)="filterType('Inbound')">Inbound</button>
+  <button (click)="filterType('Outbound')">Outbound</button>
+</div>
+
+<!-- ✅ COUNT -->
+<p>Total rows: {{ filteredData.length }}</p>
+
+<!-- ✅ VENDOR -->
+<div>
+  <select [(ngModel)]="selectedVendor">
+    <option value="">All Vendors</option>
+    <option *ngFor="let v of vendors" [value]="v.vendorId">
+      {{ v.name }}
+    </option>
+  </select>
+
+  <button (click)="applyAllFilters()">Apply</button>
+</div>
+
+<!-- ✅ RESET -->
+<button (click)="loadAll()">Show All</button>
+
+<!-- ✅ TABLE -->
+<table>
+  <thead>
+    <tr>
+      <th>TransactionId</th>
+      <th>Timestamp</th>
+      <th>Type</th>
+      <th>ItemId</th>
+      <th>Quantity</th>
+      <th>VendorId</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let t of filteredData">
+
+      <td>{{ t.transactionId }}</td>
+      <td>{{ t.timestamp }}</td>
+      <td>
+        <span [ngClass]="{
+      'inbound': t.type === 'Inbound',
+      'outbound': t.type === 'Outbound'
+    }">
+          {{ t.type }}
+        </span>
+      </td>
+
+
+      <!-- ✅ ITEM HISTORY BUTTON -->
+      <td>
+        <button (click)="viewItemHistory(t.itemId)">
+          {{ t.itemId }}
+        </button>
+      </td>
+
+      <td>{{ t.quantity }}</td>
+
+      <!-- ✅ VENDOR LOGIC -->
+      <td>
+        <ng-container *ngIf="t.type === 'Inbound'; else hideVendor">
+          {{ t.vendorId || 'No Vendor' }}
+        </ng-container>
+
+        <ng-template #hideVendor>
+          -
+        </ng-template>
+      </td>
+
+    </tr>
+
+    <!-- ✅ EMPTY -->
+    <tr *ngIf="filteredData.length === 0">
+      <td colspan="6">No transactions found</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<!-- ✅ POPUP -->
+<div class="popup-overlay" *ngIf="showHistoryPopup">
+
+  <div class="popup">
+
+    <h3>Item History (Item {{ selectedItemId }})</h3>
+
+    <button (click)="closePopup()">Close</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>TransactionId</th>
+          <th>Type</th>
+          <th>Quantity</th>
+          <th>VendorId</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let h of historyData">
+          <td>{{ h.transactionId }}</td>
+          <td>{{ h.type }}</td>
+          <td>{{ h.quantity }}</td>
+          <td>{{ h.vendorId || '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
