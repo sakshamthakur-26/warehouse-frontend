@@ -20,7 +20,7 @@ export class Stock {
     console.log('Fetching stock data from API...');
     this.http.get<StockItem[]>(this.apiURL).subscribe({
       next: (data) => {
-        alert('Stock data loaded successfully!');
+        // alert('Stock data loaded successfully!');
         
         this.stockItem.update(()=>data);
       },

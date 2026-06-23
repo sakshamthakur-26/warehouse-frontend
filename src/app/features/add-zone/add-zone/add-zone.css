@@ -1,0 +1,331 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #edf4ff;
+}
+
+/* ================= TOP BAR ================= */
+
+.top-bar {
+  width: 90%;
+  margin: 25px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Buttons */
+
+.back-btn {
+  padding: 10px 18px;     
+  font-size: 14px;         
+  border: 1.5px solid #d1d5db;
+  background: white;
+  border-radius: 8px;       
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: #f3f4f6;
+}
+
+/*  ADD BUTTON */
+.add-btn {
+  background: #2563eb;
+  color: white;
+
+  padding: 12px 22px;       /* bigger */
+  font-size: 15px;          /* more readable */
+
+  border-radius: 10px;      /* premium look */
+  border: none;
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);  /* subtle depth */
+
+  transition: all 0.2s ease;
+}
+
+.add-btn:hover {
+  background: #1d4ed8;
+
+  /* slight lift */
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+}
+
+/* ================= SEARCH ================= */
+
+.search-box {
+  width: 90%;
+  margin: 15px auto;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+/* ================= GRID ================= */
+
+.zone-cards {
+  width: 90%;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* ================= CARD ================= */
+
+.zone-card {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 14px;
+
+  /* stronger, visible border */
+  border: 1.5px solid #d1d5db;
+
+  /* layered shadow (very important) */
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.05),
+    0 12px 24px rgba(0, 0, 0, 0.08);
+
+  transition: all 0.25s ease;
+}
+
+.zone-card:hover {
+  transform: translateY(-6px);
+
+  /* ✅ deeper hover shadow */
+  box-shadow:
+    0 8px 16px rgba(0, 0, 0, 0.08),
+    0 20px 40px rgba(0, 0, 0, 0.12);
+
+  border-color: #cbd5e1; /* slight highlight */
+}
+
+
+/* HEADER */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.zone-id {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* EDIT BUTTON */
+.edit-btn {
+  border: 1px solid #2563eb;
+  color: #2563eb;
+  padding: 5px 12px;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  height: fit-content;
+  transition: 0.2s;
+}
+
+.edit-btn:hover {
+  background: #2563eb;
+  color: white;
+}
+
+/* ================= UTIL ================= */
+
+.utilization {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* ================= PROGRESS ================= */
+
+.progress {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+.progress-bar {
+  height: 8px;
+  border-radius: 10px;
+  background: linear-gradient(to right, orange, #f97316);
+}
+
+/* ================= STATS ================= */
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.stats p {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.stats h2 {
+  margin: 5px 0 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.green {
+  color: #16a34a;
+}
+
+/* ================= MODAL ================= */
+
+/* ================= MODAL OVERLAY ================= */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+/* ================= MODAL BOX ================= */
+
+.modal {
+  background: #ffffff;
+  width: 460px;
+  padding: 30px;
+  border-radius: 14px;
+
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* TITLE */
+
+.modal-title {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* FORM WRAPPER */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* FORM GROUP */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* LABEL */
+
+.form-group label {
+  font-size: 13px;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+/* INPUT */
+
+.form-group input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  width: 100%;
+
+  transition: 0.2s;
+}
+
+/* INPUT FOCUS */
+
+.form-group input:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
+}
+
+
+
+/* ERROR TEXT */
+.error {
+  color: #ef4444;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* INVALID INPUT */
+.form-group input.ng-invalid.ng-touched {
+  border: 1px solid #ef4444;
+}
+
+/* DISABLED BUTTON */
+.add-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+
+/* ACTION BUTTONS */
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+/* BUTTONS */
+
+.cancel-btn {
+  padding: 9px 16px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+}
+
+.add-btn {
+  background: #2563eb;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
