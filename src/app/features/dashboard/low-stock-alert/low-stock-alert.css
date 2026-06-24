@@ -1,66 +1,212 @@
-/* 1. Make the card a positioning anchor */
+/* Replicated metric-card styles (must duplicate — Angular view encapsulation
+   means the dashboard's .metric-card CSS doesn't reach into this component) */
+.metric-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+}
+
+.icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.icon-red {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.metric-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.metric-value {
+  margin: 4px 0 0 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e1e2f;
+}
+
+/* Tooltip + popover styles (unchanged from before) */
 .tooltip-container {
   position: relative;
-  cursor: pointer; /* Changes the mouse to a hand to imply interactivity */
 }
 
-/* 2. Hide the tooltip by default and style it */
 .tooltip-content {
-  visibility: hidden;
-  opacity: 0;
+  display: none;
   position: absolute;
-  top: 105%; /* Puts it right below the card */
-  left: 50%;
-  transform: translateX(-50%); /* Centers it perfectly */
-  background-color: #1e293b; /* Dark sleek background */
-  color: #f8fafc;
-  padding: 12px;
-  border-radius: 8px;
-  width: max-content;
-  min-width: 200px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-  z-index: 100;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 14px;
+  min-width: 260px;
+  z-index: 50;
 }
 
-/* 3. The Hover Trigger - Make it visible! */
 .tooltip-container:hover .tooltip-content {
-  visibility: visible;
-  opacity: 1;
+  display: block;
 }
 
-/* 4. A cool little triangle pointing up to the card */
-.tooltip-content::before {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -6px;
-  border-width: 6px;
-  border-style: solid;
-  border-color: transparent transparent #1e293b transparent;
-}
-
-/* 5. Clean up the text inside */
 .tooltip-content h4 {
-  margin: 0 0 8px 0;
-  font-size: 13px;
-  color: #cbd5e1;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid #334155;
-  padding-bottom: 4px;
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: #374151;
 }
 
 .tooltip-content ul {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.tooltip-content li {
-  font-size: 14px;
-  padding: 4px 0;
+.low-stock-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.low-stock-row:hover {
+  background: #f9fafb;
+}
+
+.order-link-btn {
+  background: #1d4ed8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.order-link-btn:hover {
+  background: #1e40af;
+}
+
+.order-popover-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.order-popover {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.order-popover h4 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+}
+
+.popover-sub {
+  margin: 0 0 18px;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.popover-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.popover-form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.popover-form-group input {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.popover-error {
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin: 0 0 10px;
+}
+
+.popover-success {
+  color: #15803d;
+  font-size: 0.8rem;
+  margin: 0 0 10px;
+}
+
+.popover-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.cancel-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.order-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #1d4ed8;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.order-btn:disabled,
+.cancel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

@@ -1,0 +1,48 @@
+<div class="assign-modal-overlay">
+  <div class="assign-modal">
+    <h2 class="modal-title">Assign Category</h2>
+    <p class="modal-subtitle">Assign a category to <strong>{{ zoneName }}</strong></p>
+
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="assign-form">
+
+      <div class="form-group">
+        <label>Category</label>
+        <input
+          formControlName="categoryName"
+          list="categories"
+          placeholder="Select or type category"
+          autocomplete="off"
+        />
+
+        <datalist id="categories">
+          @for (cat of catService.CategoriesName(); track cat) {
+            <option value="{{ cat }}"></option>
+          }
+        </datalist>
+
+        @if (categoryForm.get('categoryName')?.touched && categoryForm.get('categoryName')?.invalid) {
+          <span class="error">Category name is required</span>
+        }
+      </div>
+
+      @if (errorMessage) {
+        <p class="error form-error">{{ errorMessage }}</p>
+      }
+
+      <div class="actions">
+        <button type="button" class="cancel-btn" (click)="cancel()" [disabled]="isSubmitting">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="assign-btn"
+          [disabled]="categoryForm.invalid || isSubmitting"
+        >
+          {{ isSubmitting ? 'Assigning...' : 'Assign' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

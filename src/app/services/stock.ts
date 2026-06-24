@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment.development';
 import { StockItem } from '../models/stock-item';
 import { AddStock } from '../models/add-stock';
 import { RemoveStock } from '../models/remove-stock';
+import { RestockPayload } from '../models/restock-payload';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +66,8 @@ export class Stock {
     });
   }
 
+
+
   dispatchStock(): void {
     this.http.patch(`${this.apiURL}/dispatch`, this.RemoveStockItem()).subscribe({
       next: (response) => {
@@ -78,4 +82,9 @@ export class Stock {
       },
     });
   }
+
+    async restockItem(payload: RestockPayload): Promise<void> {
+      await firstValueFrom(this.http.post(this.apiURL, payload));
+      this.loadAllStock(); // Refresh the stock list after restocking}
+    }
 }

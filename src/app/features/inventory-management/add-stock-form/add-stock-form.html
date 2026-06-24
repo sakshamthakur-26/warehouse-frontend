@@ -3,17 +3,7 @@
 
   <form class="stock-form" [formGroup]="addStockForm" (ngSubmit)="onSubmit()">
 
-    <div class="form-group">
-      <label for="itemName">Item Name <span class="required">*</span></label>
-      <input type="text" id="itemName" name="itemName" formControlName="itemName" placeholder="Enter item name">
-    </div>
 
-
-
-    <div class="form-group">
-      <label for="quantity">Quantity <span class="required">*</span></label>
-      <input type="number" min="1" id="quantity" formControlName="quantity" placeholder="Enter quantity">
-    </div>
 
     <div class="form-group">
       <label for="categoryName">Category <span class="required">*</span></label>
@@ -34,6 +24,22 @@
         }
       </select>
     </div>
+
+    <div class="form-group">
+      <label for="itemName">Item Name <span class="required">*</span></label>
+      <input type="text" id="itemName" name="itemName" formControlName="itemName" placeholder="Enter item name">
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="quantity">Quantity <span class="required">*</span></label>
+      <input type="number" min="1" id="quantity" formControlName="quantity" placeholder="Enter quantity">
+    </div>
+
+
+
+
 
     <div class="form-group">
       <label for="threshold">Low Stock Alert Threshold <span class="required">*</span></label>

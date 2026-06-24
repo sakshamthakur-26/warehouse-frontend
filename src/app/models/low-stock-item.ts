@@ -1,5 +1,8 @@
 export interface LowStockItem {
 
-    itemName: string;
+   itemId: number;
+  itemName: string;
   quantity: number;
+  categoryName: string;
+  vendorName: string | null;
 }

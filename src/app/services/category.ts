@@ -15,7 +15,7 @@ export class Category {
    public _filteredVendorName :WritableSignal<Array<string>> = signal<Array<string>>([]);
 
   constructor(public http:HttpClient) {
-
+    
   }
 
   loadAllCategories() : void {
@@ -40,7 +40,15 @@ export class Category {
       this.http.post(this.apiURL, payload)
     );
   }
-
+  // async assignCategoryToZone(categoryName: string, zoneId: number): Promise<void> {
+  //   const payload = { name: categoryName, zoneId: zoneId };
+  //   await firstValueFrom(this.http.post(this.apiURL, payload));
+  // }
    
+  assignCategoryToZone(categoryName: string, zoneId: number) {
+  return this.http.post(`${this.apiURL}/assign`, {
+    categoryName, zoneId,
+  }).toPromise();
+}
 
 }

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Category } from '../../../services/category';
-import { Vendor } from '../../../services/vendor';
-import {
+import { VendorService } from '../../../services/vendor';
+import {  
   FormControl,
   FormGroup,
   FormsModule,
@@ -21,7 +21,7 @@ import { Stock } from '../../../services/stock';
 export class AddStockForm implements OnInit {
   constructor(
     public _categories: Category,
-    public _vendor: Vendor,
+    public _vendor: VendorService ,
     public _inventory: InventoryManagementComponent,
   ) {}
 

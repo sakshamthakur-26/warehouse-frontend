@@ -7,7 +7,7 @@
         <div class="summary">{{ activeCount }} active vendors out of {{ totalCount }} total</div>
       </div>
       <div>
-        <button class="add-btn" (click)="openModal()">+ Add Vendor</button>
+        <button class="add-btn" (click)="openModal()">+ New Vendor</button>
       </div>
     </div>
 
@@ -23,35 +23,35 @@
   <div class="list-card">
     <div class="list-inner">
       <table>
-    <thead>
-      <tr>
-        <th>VendorID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>PhoneNumber</th>
-        <th>GoodSupplied</th>
-        <th>Status</th>
-        <th>Edit</th>
-      </tr>
-    </thead>
+        <thead>
+          <tr>
+            <th>VendorID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+            <th>GoodSupplied</th>
+            <th>Status</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
 
-    <tbody>
-      <tr *ngFor="let v of filteredVendors()">
-        <td>{{ v.vendorId }}</td>
-        <td>{{ v.name }}</td>
-        <td>{{ v.email }}</td>
-        <td>{{ v.phoneNumber }}</td>
-        <td>{{ v.goodsSupplied }}</td>
-        <td>
-          <span [class.active]="v.isActive">
-            {{ v.isActive ? 'Active' : 'Inactive' }}
-          </span>
-        </td>
-        <td>
-          <button class="edit-btn" (click)="openEditModal(v)">Edit</button>
-        </td>
-      </tr>
-    </tbody>
+        <tbody>
+          <tr *ngFor="let v of filteredVendors()">
+            <td>{{ v.vendorId }}</td>
+            <td>{{ v.name }}</td>
+            <td>{{ v.email }}</td>
+            <td>{{ v.phoneNumber }}</td>
+            <td>{{ v.goodsSupplied }}</td>
+            <td>
+              <span [class.active]="v.isActive">
+                {{ v.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>
+              <button class="edit-btn" (click)="openEditModal(v)">Edit</button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

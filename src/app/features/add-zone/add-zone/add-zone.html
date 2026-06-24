@@ -1,6 +1,4 @@
-<!-- TOP BAR -->
 <div class="top-bar">
-
   <button class="back-btn" (click)="goBack()">
     Back to Dashboard
   </button>
@@ -10,187 +8,158 @@
   <button class="add-btn" (click)="showModal = true">
     Add Zone
   </button>
-
+  
 </div>
 
-<!-- SEARCH -->
 <div class="search-box">
-  <input
-    type="text"
-    placeholder="Search zones..."
-    [(ngModel)]="searchText"
-  >
+  <input type="text" placeholder="Search zones..." [(ngModel)]="searchText">
 </div>
 
-<!-- EMPTY STATE -->
 @if (zones.length === 0) {
-  <p class="empty-text">No zones available</p>
+<p class="empty-text">No zones available</p>
 }
 
-<!-- ZONE CARDS -->
 <div class="zone-cards">
-
   @for (
   zone of zones.filter(z =>
-    z.name?.toLowerCase().replace(/\s/g, '')
-      .includes((searchText || '').toLowerCase().replace(/\s/g, ''))
+  z.name?.toLowerCase().replace(/\s/g, '')
+  .includes((searchText || '').toLowerCase().replace(/\s/g, ''))
   );
   track $index
-) {
+  ) {
+  <div class="zone-card">
 
-    <div class="zone-card">
-
-      <!-- HEADER -->
-      <div class="card-header">
-        <div>
-          <h3>{{ zone.name }}</h3>
-          <p class="zone-id">Z{{ zone.zoneId }}</p>
-        </div>
-
-        <button class="edit-btn" (click)="editZone(zone)">
-          Edit
-        </button>
+    <div class="card-header">
+      <div>
+        <h3>{{ zone.name }}</h3>
+        <p class="zone-id">Z{{ zone.zoneId }}</p>
       </div>
 
-      <!-- UTILIZATION -->
-      <div class="utilization">
-        <span>Utilization</span>
-        <span>
-          {{ ((zone.currentUsage / zone.maxCapacity) * 100).toFixed(1) }}%
-        </span>
-      </div>
-
-      <!-- PROGRESS BAR -->
-      <div class="progress">
-        <div
-          class="progress-bar"
-          [style.width.%]="(zone.currentUsage / zone.maxCapacity) * 100">
-        </div>
-      </div>
-
-      <hr />
-
-      <!-- STATS -->
-      <div class="stats">
-
-        <div>
-          <p>Capacity</p>
-          <h2>{{ zone.maxCapacity }}</h2>
-        </div>
-
-        <div>
-          <p>In Use</p>
-          <h2>{{ zone.currentUsage }}</h2>
-        </div>
-
-        <div>
-          <p>Available</p>
-          <h2 class="green">
-            {{ zone.maxCapacity - zone.currentUsage }}
-          </h2>
-        </div>
-
-      </div>
-
+      <button class="edit-btn" (click)="editZone(zone)">
+        Edit
+      </button>
     </div>
 
-  }
+    <div class="utilization">
+      <span>Utilization</span>
+      <span>
+        {{ ((zone.currentUsage / zone.maxCapacity) * 100).toFixed(1) }}%
+      </span>
+    </div>
 
+    <div class="progress">
+      <div class="progress-bar" [style.width.%]="(zone.currentUsage / zone.maxCapacity) * 100">
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="stats">
+      <div>
+        <p>Capacity</p>
+        <h2>{{ zone.maxCapacity }}</h2>
+      </div>
+
+      <div>
+        <p>In Use</p>
+        <h2>{{ zone.currentUsage }}</h2>
+      </div>
+
+      <div>
+        <p>Available</p>
+        <h2 class="green">
+          {{ zone.maxCapacity - zone.currentUsage }}
+        </h2>
+      </div>
+    </div>
+
+    <hr />
+    <div class="card-footer" style="margin-top: 15px; text-align: center;">
+     <button class="add-btn" style="width: 100%;" (click)="selectedZoneId = zone.zoneId; selectedZoneName = zone.name">
+  Assign Category
+</button>
+    </div>
+  </div>
+  }
 </div>
 
-<!-- MODAL -->
 @if (showModal) {
-
 <div class="modal-overlay">
-
   <div class="modal">
-
     <h2 class="modal-title">Add Zone</h2>
-
     <div class="form">
 
-      <!-- ZONE NAME -->
       <div class="form-group">
         <label>Zone Name</label>
-        <input [(ngModel)]="z.name" (blur)="formatZoneName()" placeholder="Enter zone name"/>
+        <input [(ngModel)]="z.name" (blur)="formatZoneName()" placeholder="Enter zone name" />
 
         @if (!z.name || z.name.trim() === '') {
-          <span class="error">Zone name is required</span>
+        <span class="error">Zone name is required</span>
         }
 
         @if (z.name && !isValidZoneName(z.name)) {
-            <span class="error">
-            Zone name must contain two words (e.g., "Zone A")
-            </span>
+        <span class="error">
+          Zone name must contain two words (e.g., "Zone A")
+        </span>
         }
-
       </div>
 
-      <!-- CAPACITY -->
       <div class="form-group">
         <label>Capacity</label>
         <input type="number" [(ngModel)]="z.maxcapacity">
 
-        @if (z.maxcapacity < 200) {
-          <span class="error">Minimum capacity is 200</span>
-        }
+        @if (z.maxcapacity < 200) { <span class="error">Minimum capacity is 200</span>
+          }
 
-        @if (z.maxcapacity > 5000) {
+          @if (z.maxcapacity > 5000) {
           <span class="error">Maximum capacity is 5000</span>
-        }
+          }
       </div>
 
-      <!-- USAGE -->
       <div class="form-group">
         <label>Usage</label>
         <input type="number" [(ngModel)]="z.currentUsage">
 
-        @if (z.currentUsage < 0) {
-          <span class="error">Cannot be negative</span>
-        }
+        @if (z.currentUsage < 0) { <span class="error">Cannot be negative</span>
+          }
 
-        @if (z.currentUsage > z.maxcapacity) {
+          @if (z.currentUsage > z.maxcapacity) {
           <span class="error">
             Usage cannot exceed capacity
           </span>
-        }
+          }
       </div>
 
-      <!-- GLOBAL ERROR -->
       @if (errorMessage) {
-        <p class="error">{{ errorMessage }}</p>
+      <p class="error">{{ errorMessage }}</p>
       }
 
     </div>
 
-    <!-- ACTION BUTTONS -->
     <div class="modal-actions">
-
       <button class="cancel-btn" (click)="showModal=false">
         Cancel
       </button>
 
-      
-    <button
-    class="add-btn"
-    [disabled]="
-        !z.name ||
-        !isValidZoneName(z.name) ||
-        z.maxcapacity < 200 ||
-        z.maxcapacity > 5000 ||
-        z.currentUsage < 0 ||
-        z.currentUsage > z.maxcapacity
-    "
-    (click)="addZone()"
-    >
-    Add
-    </button>
-
-
+      <button class="add-btn" [disabled]="
+              !z.name ||
+              !isValidZoneName(z.name) ||
+              z.maxcapacity < 200 ||
+              z.maxcapacity > 5000 ||
+              z.currentUsage < 0 ||
+              z.currentUsage > z.maxcapacity
+          " (click)="addZone()">
+        Add
+      </button>
     </div>
-
   </div>
-
 </div>
+}
 
+@if (selectedZoneId > 0) {
+  <app-assign-category
+    [zoneId]="selectedZoneId"
+    [zoneName]="selectedZoneName"
+    (close)="selectedZoneId = 0">
+  </app-assign-category>
 }

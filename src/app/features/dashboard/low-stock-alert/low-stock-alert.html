@@ -1,4 +1,4 @@
-<div class="metric-card critical-alerts tooltip-container">
+<div class="metric-card icon-red-wrapper tooltip-container">
   <div class="icon-wrapper icon-red">
     <span class="icon">⚠️</span>
   </div>
@@ -11,10 +11,48 @@
     <div class="tooltip-content">
       <h4>Items to Restock:</h4>
       <ul>
-        @for (item of dashboardService.summaryData()?.lowStockItems; track item.itemName) {
-          <li>{{ item.itemName }} (Only {{ item.quantity }} left)</li>
+        @for (item of dashboardService.summaryData()?.lowStockItems; track item.itemId) {
+          <li class="low-stock-row" (click)="openOrderForm(item, $event)">
+            <span>{{ item.itemName }} (Only {{ item.quantity }} left)</span>
+            <button type="button" class="order-link-btn">Order</button>
+          </li>
         }
       </ul>
     </div>
   }
 </div>
+
+@if (selectedItem) {
+  <div class="order-popover-overlay" (click)="closeOrderForm()">
+    <div class="order-popover" (click)="$event.stopPropagation()">
+      <h4>Order: {{ selectedItem.itemName }}</h4>
+      <p class="popover-sub">Category: {{ selectedItem.categoryName }} · Currently {{ selectedItem.quantity }} in stock</p>
+
+      <div class="popover-form-group">
+        <label>Quantity</label>
+        <input type="number" min="1" [(ngModel)]="orderQuantity" placeholder="Enter quantity" />
+      </div>
+
+      <div class="popover-form-group">
+        <label>Vendor</label>
+        <input type="text" [(ngModel)]="orderVendor" placeholder="Vendor name" />
+      </div>
+
+      @if (errorMessage) {
+        <p class="popover-error">{{ errorMessage }}</p>
+      }
+      @if (successMessage) {
+        <p class="popover-success">{{ successMessage }}</p>
+      }
+
+      <div class="popover-actions">
+        <button type="button" class="cancel-btn" (click)="closeOrderForm()" [disabled]="isSubmitting">
+          Cancel
+        </button>
+        <button type="button" class="order-btn" (click)="submitOrder()" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Placing...' : 'Place Order' }}
+        </button>
+      </div>
+    </div>
+  </div>
+}

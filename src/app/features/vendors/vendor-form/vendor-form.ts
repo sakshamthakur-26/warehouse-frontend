@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { Vendor } from '../models/vendor'; 
+import { Vendor } from '../models/vendor';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { VendorService } from '../../../core/services/vendor';
+import { VendorService } from '../../../services/vendor';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-
 
 @Component({
   selector: 'app-vendor-form',
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './vendor-form.html',
-  styleUrls: ['./vendor-form.css']
+  styleUrls: ['./vendor-form.css'],
 })
 export class VendorForm implements OnInit {
-
-  vendor: Vendor = {
+  vendor: Vendor = {    
     name: '',
     email: '',
     phoneNumber: '',
     goodsSupplied: '',
-    isActive: true
+    isActive: true,
   };
 
   isEdit = false;
@@ -28,7 +26,7 @@ export class VendorForm implements OnInit {
   constructor(
     private service: VendorService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -38,17 +36,16 @@ export class VendorForm implements OnInit {
       this.isEdit = true;
 
       this.service.getById(id).subscribe({
-        next: (data) => this.vendor = data,
-        error: (err) => {
+        next: (data: Vendor) => (this.vendor = data),
+        error: (err: any) => {
           this.errorMsg = 'Failed to load vendor';
           console.error(err);
-        }
+        },
       });
     }
   }
 
   save() {
-
     this.errorMsg = '';
 
     // ✅ FRONTEND VALIDATION
@@ -76,24 +73,19 @@ export class VendorForm implements OnInit {
     // ✅ API CALL
 
     if (this.isEdit) {
-
-      this.service.update(this.vendor.vendorId!, this.vendor)
-        .subscribe({
-          next: () => this.router.navigate(['/']),
-          error: (err) => {
-            this.errorMsg = err?.error?.message || 'Update failed';
-          }
-        });
-
+      this.service.update(this.vendor.vendorId!, this.vendor).subscribe({
+        next: () => this.router.navigate(['/']),
+        error: (err: any) => {
+          this.errorMsg = err?.error?.message || 'Update failed';
+        },
+      });
     } else {
-
-      this.service.create(this.vendor)
-        .subscribe({
-          next: () => this.router.navigate(['/']),
-          error: (err) => {
-            this.errorMsg = err?.error?.message || 'Create failed';
-          }
-        });
+      this.service.create(this.vendor).subscribe({
+        next: () => this.router.navigate(['/']),
+        error: (err: any) => {
+          this.errorMsg = err?.error?.message || 'Create failed';
+        },
+      });
     }
   }
 }

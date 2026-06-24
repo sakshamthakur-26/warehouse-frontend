@@ -2,21 +2,20 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Vendor } from '../models/vendor';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { VendorService } from '../../../core/services/vendor';
+import { VendorService } from '../../../services/vendor';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-vendor-list',
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './vendor-list.html',
-  styleUrls: ['./vendor-list.css']
+  styleUrls: ['./vendor-list.css'],
 })
 export class VendorList implements OnInit {
-
   vendors: Vendor[] = [];
   getNextVendorId(): string {
-  return 'VEN' + (this.vendors.length + 1).toString().padStart(3, '0');
-}
+    return 'VEN' + (this.vendors.length + 1).toString().padStart(3, '0');
+  }
   searchText: string = '';
   showModal = false;
 
@@ -26,7 +25,7 @@ export class VendorList implements OnInit {
     email: '',
     phoneNumber: '',
     goodsSupplied: '',
-    isActive: true
+    isActive: true,
   };
 
   // we're editing an existing vendor (has vendorId)
@@ -35,21 +34,31 @@ export class VendorList implements OnInit {
   formError: string = '';
   fieldErrors: { email?: string; phoneNumber?: string } = {};
 
-  constructor(private service: VendorService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private service: VendorService,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.loadVendors();
   }
 
   loadVendors() {
-    this.service.getAll().subscribe(data => {
-      this.vendors = data;
-      try { this.cdr.detectChanges(); } catch (e) {}
-    });
+    this.service.getAll().subscribe(
+      (data: Vendor[]) => {
+        this.vendors = data;
+        try {
+          this.cdr.detectChanges();
+        } catch (e) {}
+      },
+      (err: any) => {
+        console.error('Failed to load vendors', err);
+      },
+    );
   }
 
   get activeCount(): number {
-    return this.vendors.filter(v => v.isActive).length;
+    return this.vendors.filter((v) => v.isActive).length;
   }
 
   get totalCount(): number {
@@ -61,8 +70,9 @@ export class VendorList implements OnInit {
 
     const q = this.searchText.toLowerCase();
 
-    return this.vendors.filter(v => {
-      const idMatch = v.vendorId !== undefined && v.vendorId !== null && v.vendorId.toString().includes(q);
+    return this.vendors.filter((v) => {
+      const idMatch =
+        v.vendorId !== undefined && v.vendorId !== null && v.vendorId.toString().includes(q);
       const nameMatch = v.name && v.name.toLowerCase().includes(q);
       const emailMatch = v.email && v.email.toLowerCase().includes(q);
       return idMatch || nameMatch || emailMatch;
@@ -71,13 +81,17 @@ export class VendorList implements OnInit {
 
   openModal() {
     this.resetModal();
-    try { document.body.style.overflow = 'hidden'; } catch(e) {}
+    try {
+      document.body.style.overflow = 'hidden';
+    } catch (e) {}
     this.showModal = true;
   }
 
   closeModal() {
     this.showModal = false;
-    try { document.body.style.overflow = ''; } catch(e) {}
+    try {
+      document.body.style.overflow = '';
+    } catch (e) {}
   }
 
   addVendor() {
@@ -86,13 +100,16 @@ export class VendorList implements OnInit {
     if (!this.localValidate()) return;
 
     // Create new vendor
-    this.service.create(this.newVendor).subscribe(() => {
-      this.closeModal();
-      this.loadVendors();
-    }, err => {
-      const payload = err?.error;
-      this.handleServerError(payload);
-    });
+    this.service.create(this.newVendor).subscribe(
+      () => {
+        this.closeModal();
+        this.loadVendors();
+      },
+      (err: any) => {
+        const payload = err?.error;
+        this.handleServerError(payload);
+      },
+    );
   }
 
   openEditModal(v: Vendor) {
@@ -107,14 +124,17 @@ export class VendorList implements OnInit {
       this.fieldErrors = {};
       if (!this.localValidate()) return;
 
-      this.service.update(this.newVendor.vendorId, this.newVendor).subscribe(() => {
-        this.closeModal();
-        this.editMode = false;
-        this.loadVendors();
-      }, err => {
-        const payload = err?.error;
-        this.handleServerError(payload);
-      });
+      this.service.update(this.newVendor.vendorId, this.newVendor).subscribe(
+        () => {
+          this.closeModal();
+          this.editMode = false;
+          this.loadVendors();
+        },
+        (err: any) => {
+          const payload = err?.error;
+          this.handleServerError(payload);
+        },
+      );
     } else {
       this.addVendor();
     }
@@ -127,7 +147,7 @@ export class VendorList implements OnInit {
       email: '',
       phoneNumber: '',
       goodsSupplied: '',
-      isActive: true
+      isActive: true,
     };
     this.formError = '';
     this.fieldErrors = {};
@@ -148,7 +168,6 @@ export class VendorList implements OnInit {
     }
   }
 
- 
   private localValidate(): boolean {
     const errs: { email?: string; phoneNumber?: string } = {};
 
@@ -166,10 +185,18 @@ export class VendorList implements OnInit {
     // Duplication checks against loaded vendors
     const qEmail = email.toLowerCase();
     const qPhone = phone;
-    const duplicateEmail = this.vendors.some(v => v.email && v.email.toLowerCase() === qEmail &&
-      (this.editMode ? v.vendorId !== this.newVendor.vendorId : true));
-    const duplicatePhone = this.vendors.some(v => v.phoneNumber && v.phoneNumber === qPhone &&
-      (this.editMode ? v.vendorId !== this.newVendor.vendorId : true));
+    const duplicateEmail = this.vendors.some(
+      (v) =>
+        v.email &&
+        v.email.toLowerCase() === qEmail &&
+        (this.editMode ? v.vendorId !== this.newVendor.vendorId : true),
+    );
+    const duplicatePhone = this.vendors.some(
+      (v) =>
+        v.phoneNumber &&
+        v.phoneNumber === qPhone &&
+        (this.editMode ? v.vendorId !== this.newVendor.vendorId : true),
+    );
 
     if (duplicateEmail) errs.email = 'A vendor with the same email already exists.';
     if (duplicatePhone) errs.phoneNumber = 'A vendor with the same phone number already exists.';

@@ -1,6 +1,6 @@
 <div class="form-container">
 
-  <h2>{{ isEdit ? 'Edit Vendor' : 'Add Vendor' }}</h2>
+  <h2>{{ isEdit ? 'Edit Vendor' : 'New Vendor' }}</h2>
 
   <!-- ERROR DISPLAY -->
   <div *ngIf="errorMsg" class="error-box">
@@ -9,31 +9,31 @@
 
   <form (ngSubmit)="save()">
 
-  <div class="form-group">
-    <input [(ngModel)]="vendor.name" name="name" placeholder="Vendor Name *">
-  </div>
-
-  <div class="form-group">
-    <input [(ngModel)]="vendor.email" name="email" placeholder="Email *">
-  </div>
-
-  <div class="form-group">
-    <input [(ngModel)]="vendor.phoneNumber" name="phoneNumber" placeholder="Phone Number *">
-  </div>
-
-  <div class="form-group">
-    <input [(ngModel)]="vendor.goodsSupplied" name="goodsSupplied" placeholder="Goods Supplied *">
-  </div>
     <div class="form-group">
-  <label>Is Active</label>
+      <input [(ngModel)]="vendor.name" name="name" placeholder="Vendor Name *">
+    </div>
 
-  <select [(ngModel)]="vendor.isActive" name="isActive">
-    <option [ngValue]="true">Yes</option>
-    <option [ngValue]="false">No</option>
-  </select>
-</div>
+    <div class="form-group">
+      <input [(ngModel)]="vendor.email" name="email" placeholder="Email *">
+    </div>
 
-<button type="submit" class="save-btn">Save</button>
+    <div class="form-group">
+      <input [(ngModel)]="vendor.phoneNumber" name="phoneNumber" placeholder="Phone Number *">
+    </div>
+
+    <div class="form-group">
+      <input [(ngModel)]="vendor.goodsSupplied" name="goodsSupplied" placeholder="Goods Supplied *">
+    </div>
+    <div class="form-group">
+      <label>Is Active</label>
+
+      <select [(ngModel)]="vendor.isActive" name="isActive">
+        <option [ngValue]="true">Yes</option>
+        <option [ngValue]="false">No</option>
+      </select>
+    </div>
+
+    <button type="submit" class="save-btn">Save</button>
 
   </form>
 

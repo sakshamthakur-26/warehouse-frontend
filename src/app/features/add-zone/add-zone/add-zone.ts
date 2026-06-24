@@ -4,18 +4,21 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Zones } from '../../../models/zones';
-
+import { AssignCategory } from '../../assign-category/assign-category';
 
 @Component({
   selector: 'app-add-zone',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, AssignCategory],
   templateUrl: './add-zone.html',
-  styleUrl: './add-zone.css',
+  styleUrls: ['./add-zone.css'],
 })
 export class AddZone implements OnInit {
   z: Zones = new Zones();
   zones: any[] = [];
+  public selectedZoneId: number = 0;
+
+  selectedZoneName = '';
 
   errorMessage: string = '';
 

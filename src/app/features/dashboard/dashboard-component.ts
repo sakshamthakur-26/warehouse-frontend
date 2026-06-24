@@ -6,9 +6,10 @@ import { Dashboard } from '../../services/dashboard';
 
 @Component({
   selector: 'app-dashboard-component',
+  standalone: true,
   imports: [StockTable, LowStockAlert],
   templateUrl: './dashboard-component.html',
-  styleUrl: './dashboard-component.css',
+  styleUrls: ['./dashboard-component.css'],
 })
 export class DashboardComponent implements OnInit {
   // 1. Inject the service (must be public so the HTML can read it)

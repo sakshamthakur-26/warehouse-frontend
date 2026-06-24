@@ -1,11 +1,11 @@
 <div class="dashboard-wrapper">
-  
+
   <header class="dashboard-header">
     <h1 class="page-title">Stock Dashboard</h1>
   </header>
 
   <div class="metrics-grid">
-    
+
     <div class="metric-card">
       <div class="icon-wrapper icon-blue">
         <span class="icon">📦</span>
@@ -16,7 +16,19 @@
       </div>
     </div>
 
+    <!-- <div class="metric-card">
+      <div class="icon-wrapper icon-blue">
+        <span class="icon">📦</span>
+      </div>
+      <div class="metric-info">
+        <p class="metric-label">Total Items</p>
+        <h3 class="metric-value">{{ dashboardService.summaryData()?.totalStockItems ?? 0 }}</h3>
+      </div>
+    </div> -->
     <app-low-stock-alert></app-low-stock-alert>
+
+
+
 
     <div class="metric-card">
       <div class="icon-wrapper icon-green">

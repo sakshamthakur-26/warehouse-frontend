@@ -171,7 +171,7 @@ button:nth-child(3):hover {
 /* ✅ POPUP CLOSE BUTTON */
 .close-btn {
   float: right;
-  background: #e74c3c;
+  background:red;
 }
 
 .close-btn:hover {
