@@ -17,7 +17,7 @@ export class RemoveStockForm implements OnInit {
   constructor(public _stockService: Stock) {}
 
   ngOnInit(): void {
-    console.log("in init firet");
+    console.log('in init firet');
     this._stockService.loadAllStock();
     this.dispatchForm.get('itemId')?.valueChanges.subscribe((selectedId) => {
       this.applyMaxQuantityValidator(Number(selectedId));
@@ -28,11 +28,10 @@ export class RemoveStockForm implements OnInit {
     const selectedItem = this._stockService.stockItem().find((item) => item.itemId === itemId);
 
     if (selectedItem) {
-      // Re-apply validators including the dynamic maximum allowed value
       qtyControl?.setValidators([
         Validators.required,
         Validators.min(1),
-        Validators.max(selectedItem.quantity), // Sets max dynamically to available stock
+        Validators.max(selectedItem.quantity),
       ]);
     } else {
       qtyControl?.setValidators([Validators.required, Validators.min(1)]);
@@ -40,7 +39,7 @@ export class RemoveStockForm implements OnInit {
 
     qtyControl?.updateValueAndValidity();
   }
-  async RemoveStock(): Promise<void> {
+  RemoveStock(): void {
     if (this.dispatchForm.invalid) {
       alert('Please select an item and enter a valid quantity.');
       return;
@@ -54,8 +53,8 @@ export class RemoveStockForm implements OnInit {
       quantity: Number(formValues.quantity),
     });
 
-    await this._stockService.dispatchStock();
-    this._stockService.loadAllStock(); // Refresh the stock list after dispatching
+    this._stockService.dispatchStock();
+    this._stockService.loadAllStock();
     this.dispatchForm.reset({ itemId: 0, quantity: 0 });
   }
 }

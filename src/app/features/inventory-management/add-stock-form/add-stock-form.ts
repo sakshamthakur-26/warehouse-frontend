@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AddStock } from '../../../models/add-stock';
+
 import { InventoryManagementComponent } from '../inventory-management-component';
 import { Stock } from '../../../services/stock';
 
@@ -49,15 +49,7 @@ export class AddStockForm implements OnInit {
       }
     });
 
-    // this.addStockForm.get('categoryName')?.valueChanges.subscribe((selectedCategory) => {
-    //   this.addStockForm.get('vendorName')?.setValue('', { emitEvent: false }); // Reset vendor selection when category changes
-    //   if (selectedCategory) {
-    //     console.log('Category selected:', selectedCategory);
-    //     this._vendor.onCategoryChange(selectedCategory);
 
-    //     // 3. This triggers your service, updates the Signal, and populates your HTML!
-    //   }
-    // });
   }
 
   onSubmit(): void {

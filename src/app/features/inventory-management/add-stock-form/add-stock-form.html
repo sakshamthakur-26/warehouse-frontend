@@ -1,5 +1,5 @@
 <div class="form-card">
-  <h2 class="form-title">Add New Stock</h2>
+  <h2 class="form-title">Place New Order</h2>
 
   <form class="stock-form" [formGroup]="addStockForm" (ngSubmit)="onSubmit()">
 
@@ -48,7 +48,7 @@
 
     <div class="form-actions">
       <button type="button" class="btn btn-cancel" (click)="resetForm()">Cancel</button>
-      <button type="submit" class="btn btn-submit" [disabled]="addStockForm.invalid">Add Stock</button>
+      <button type="submit" class="btn btn-submit" [disabled]="addStockForm.invalid">Place Order</button>
     </div>
   </form>
 </div>

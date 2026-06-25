@@ -26,7 +26,7 @@ export class LowStockAlert {
   ) {}
 
   openOrderForm(item: LowStockItem, event: MouseEvent) {
-    event.stopPropagation(); // don't close the hover tooltip immediately
+    event.stopPropagation(); 
     this.selectedItem = item;
     this.orderQuantity = null;
     this.orderVendor = item.vendorName ?? '';
@@ -61,7 +61,7 @@ export class LowStockAlert {
       });
 
       this.successMessage = `Order placed for ${this.orderQuantity} units of ${this.selectedItem.itemName}.`;
-      this.dashboardService.loadDashboardMetrics(); // refresh counts/list
+      this.dashboardService.loadDashboardMetrics(); 
 
       setTimeout(() => {
         this.closeOrderForm();

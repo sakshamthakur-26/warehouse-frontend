@@ -1,37 +1,49 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { environment } from '../../environments/environment.development';
 
+export interface AuthResponse {
+  token: string;
+  username: string;
+  role: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private apiURL = `${environment.apiURL}/api/auth`;
 
-  private baseUrl = 'http://localhost:5281/api/auth';
 
-  constructor(private http: HttpClient) {}
+  isLoggedIn = signal<boolean>(!!localStorage.getItem('token'));
 
-  login(data: any) {
-    return this.http.post<any>(`${this.baseUrl}/login`, data);
+  constructor(private http: HttpClient) {
+    window.addEventListener('storage', () => {
+      this.isLoggedIn.set(!!localStorage.getItem('token'));
+    });
   }
 
-  register(data: any) {
-    return this.http.post(`${this.baseUrl}/register`, data);
+  login(data: { username: string; password: string }) {
+    return this.http.post<AuthResponse>(`${this.apiURL}/login`, data);
   }
 
-  saveToken(token: string) {
-    localStorage.setItem('token', token);
+  register(data: { name: string; username: string; password: string }) {
+    return this.http.post(`${this.apiURL}/register`, data);
   }
 
-  getToken() {
+  saveSession(res: AuthResponse) {
+    localStorage.setItem('token', res.token);
+    localStorage.setItem('username', res.username);
+    localStorage.setItem('role', res.role);
+    this.isLoggedIn.set(true);
+  }
+
+  getToken(): string | null {
     return localStorage.getItem('token');
-  }
-
-  isLoggedIn() {
-    return !!this.getToken();
   }
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    this.isLoggedIn.set(false);
   }
 }
-
-

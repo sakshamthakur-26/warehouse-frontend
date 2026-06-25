@@ -24,12 +24,12 @@ constructor(private auth: AuthService, private router: Router) {}
 register() {
   this.auth.register(this.user).subscribe({
     next: () => {
-      alert("Registration successful");
+      // alert("Registration successful");
       this.router.navigate(['/login']);
     },
     error: (err) => {
       if (err.status === 409) {
-        alert("Username already exists");
+        // alert("Username already exists");
       } else {
         console.log("error:",err);
         alert("Registration failed. Try again.");

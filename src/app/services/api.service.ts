@@ -10,20 +10,20 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Get all transactions
+  //  Get all transactions
   getTransactions() {
     console.log("Fetching all transactions from API...");
     return this.http.get(`${this.baseUrl}/transactions`);
   }
 
-  // ✅ Item history
+  //  Item history
   getItemHistory(itemId: number) {
     return this.http.get(
       `${this.baseUrl}/transactions/item?itemId=${itemId}`
     );
   }
 
-  // ✅ Date range API
+  //  Date range API
   getTransactionsByDateRange(start: string, end: string) {
     console.log("API call:", start, end);
 
@@ -32,12 +32,12 @@ export class ApiService {
     );
   }
 
-  // ✅ Vendors
+  //  Vendors
   getVendors() {
     return this.http.get(`${this.baseUrl}/vendors`);
   }
 
-  // ✅ Vendor filter
+  //  Vendor filter
   getTransactionsByVendorId(vendorId: number) {
     return this.http.get(
       `${this.baseUrl}/transactions/vendor?vendorId=${vendorId}`

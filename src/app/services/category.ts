@@ -25,7 +25,7 @@ export class Category {
       next : (data)=> {
       
         this.CategoriesName.update(()=>data)
-        // alert("categories fetched successfully")
+    
       },
       error : (err)=> {
         console.error("Error fetching categories",err)
@@ -40,11 +40,7 @@ export class Category {
       this.http.post(this.apiURL, payload)
     );
   }
-  // async assignCategoryToZone(categoryName: string, zoneId: number): Promise<void> {
-  //   const payload = { name: categoryName, zoneId: zoneId };
-  //   await firstValueFrom(this.http.post(this.apiURL, payload));
-  // }
-   
+ 
   assignCategoryToZone(categoryName: string, zoneId: number) {
   return this.http.post(`${this.apiURL}/assign`, {
     categoryName, zoneId,

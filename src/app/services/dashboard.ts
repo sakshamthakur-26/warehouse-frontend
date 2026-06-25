@@ -14,7 +14,7 @@ export class Dashboard {
 
   constructor(private http: HttpClient) {}
 
-  // 3. The async fetch method triggered by your component
+  //  The async fetch method triggered by your component
   async loadDashboardMetrics(): Promise<void> {
     try {
       // Fetch the data and convert the Observable to a Promise

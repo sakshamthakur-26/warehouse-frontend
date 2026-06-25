@@ -66,25 +66,25 @@ export class Stock {
     });
   }
 
-
-
   dispatchStock(): void {
-    this.http.patch(`${this.apiURL}/dispatch`, this.RemoveStockItem()).subscribe({
-      next: (response) => {
-        alert('Stock successfully dispatched!');
-        this.loadAllStock();
+    this.http
+      .patch(`${this.apiURL}/dispatch`, this.RemoveStockItem(), { responseType: 'text' })
+      .subscribe({
+        next: (response) => {
+          alert('Stock successfully dispatched!');
+          this.loadAllStock();
 
-        this.RemoveStockItem.set({ itemId: 0, quantity: 0 });
-      },
-      error: (err) => {
-        console.error('Error dispatching stock', err);
-        alert(err.error || 'Failed to dispatch stock.');
-      },
-    });
+          this.RemoveStockItem.set({ itemId: 0, quantity: 0 });
+        },
+        error: (err) => {
+          console.error('Error dispatching stock', err);
+          // alert(err.error || 'Failed to dispatch stock.');
+        },
+      });
   }
 
-    async restockItem(payload: RestockPayload): Promise<void> {
-      await firstValueFrom(this.http.post(this.apiURL, payload));
-      this.loadAllStock(); // Refresh the stock list after restocking}
-    }
+  async restockItem(payload: RestockPayload): Promise<void> {
+    await firstValueFrom(this.http.post(this.apiURL, payload));
+    this.loadAllStock(); // Refresh the stock list after restocking}
+  }
 }

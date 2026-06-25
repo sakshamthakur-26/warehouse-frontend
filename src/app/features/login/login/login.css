@@ -1,6 +1,6 @@
-/* =========================
-   Layout Container
-========================= */
+
+   /* Layout Container */
+
 
 .auth-container {
   height: 100vh;
@@ -10,9 +10,9 @@
   align-items: center;
 }
 
-/* =========================
-   Login Card
-========================= */
+
+   /* Login Card */
+
 
 .auth-card {
   width: 360px;
@@ -25,9 +25,9 @@
     0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
-/* =========================
-   Branding / Header
-========================= */
+
+   /* Branding / Header */
+
 
 .logo {
   font-size: 18px;
@@ -48,9 +48,9 @@
   margin-bottom: 20px;
 }
 
-/* =========================
-   Form Layout
-========================= */
+
+   /* Form Layout */
+
 
 .form-box {
   display: flex;
@@ -58,9 +58,9 @@
   gap: 16px;
 }
 
-/* =========================
-   Input Fields
-========================= */
+
+   /* Input Fields */
+
 
 .form-box input {
   width: 100%;
@@ -81,9 +81,9 @@
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
-/* =========================
-   Submit Button
-========================= */
+
+   /* Submit Button */
+
 
 .login-btn {
   margin-top: 4px;
@@ -107,14 +107,14 @@
               box-shadow 0.2s ease;
 }
 
-/* Hover state */
+/* Hover state  */
 .login-btn:hover {
   background-color: #1d4ed8;
   transform: translateY(-1px);
   box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
 }
 
-/* Disabled state (optional future use) */
+/* Disabled state (optional future use)  */
 .login-btn:disabled {
   background-color: #9ca3af;
   cursor: not-allowed;
@@ -142,9 +142,9 @@
   text-decoration: underline;
 }
 
-/* =========================
+/*
    Error Message (Optional)
-========================= */
+ */
 
 .error {
   margin-top: 8px;

@@ -3,6 +3,7 @@ import { StockTable } from './stock-table/stock-table';
 import { LowStockAlert } from './low-stock-alert/low-stock-alert';
 import { Stock } from '../../services/stock';
 import { Dashboard } from '../../services/dashboard';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-component',
@@ -12,11 +13,19 @@ import { Dashboard } from '../../services/dashboard';
   styleUrls: ['./dashboard-component.css'],
 })
 export class DashboardComponent implements OnInit {
-  // 1. Inject the service (must be public so the HTML can read it)
-  constructor(public dashboardService: Dashboard) {}
 
-  // 2. Fetch the data as soon as the user opens the page
+  constructor(public dashboardService: Dashboard, private router: Router,) {}
+
+
   ngOnInit(): void {
     this.dashboardService.loadDashboardMetrics();
+  }
+
+   goToZones(): void {
+    this.router.navigate(['/zones']);
+  }
+
+  goToVendors(): void {
+    this.router.navigate(['/vendors']);
   }
 }

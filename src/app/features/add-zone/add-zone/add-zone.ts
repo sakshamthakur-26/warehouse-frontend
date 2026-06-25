@@ -54,36 +54,89 @@ export class AddZone implements OnInit {
     return /^[A-Za-z]+( ?[A-Za-z]+)?$/.test(value);
   }
 
-  addZone() {
-    //  VALIDATION: Capacity limit
+  // addZone() {
+  //   //  VALIDATION: Capacity limit
 
+  //   if (this.z.maxcapacity > 5000) {
+  //     this.errorMessage = 'Capacity cannot exceed 5000 units';
+  //     return;
+  //   }
+
+  //   //  Clear previous error
+  //   this.errorMessage = '';
+
+  //   this.client.post('http://localhost:5281/api/Zones', this.z).subscribe({
+  //     next: () => {
+  //       alert('Zone added successfully');
+
+  //       this.z = new Zones();
+
+  //       this.loadZone();
+  //     },
+  //     error: (error) => {
+  //       if (error.status === 409) {
+  //         this.errorMessage = 'Zone already exists';
+  //       } else {
+  //         this.errorMessage = 'Something went wrong';
+  //       }
+  //     },
+  //   });
+  // }
+
+  addZone() {
+    // VALIDATION: Capacity limit
     if (this.z.maxcapacity > 5000) {
       this.errorMessage = 'Capacity cannot exceed 5000 units';
       return;
     }
 
-    //  Clear previous error
+    // Clear previous error
     this.errorMessage = '';
 
-    this.client.post('http://localhost:5281/api/Zones', this.z).subscribe({
-      next: () => {
-        alert('Zone added successfully');
+    // 👇 UPDATE THIS IF BLOCK FOR EDITING
+    if (this.z.zoneId) {
+      // Create a payload that perfectly matches your C# UpdateZoneRequest DTO
+      const updatePayload = {
+        name: this.z.name,
+        maxCapacity: this.z.maxcapacity,
+      };
 
-        this.z = new Zones();
-
-        this.loadZone();
-      },
-      error: (error) => {
-        if (error.status === 409) {
-          this.errorMessage = 'Zone already exists';
-        } else {
-          this.errorMessage = 'Something went wrong';
-        }
-      },
-    });
+      // Notice we are using .patch() here instead of .put()
+      this.client
+        .patch(`http://localhost:5281/api/Zones/${this.z.zoneId}`, updatePayload)
+        .subscribe({
+          next: () => {
+            alert('Zone updated successfully');
+            this.showModal = false;
+            this.z = new Zones(); // Reset form
+            this.loadZone(); // Refresh list
+          },
+          error: (err) => {
+            console.error(err);
+            this.errorMessage = 'Failed to update zone';
+          },
+        });
+    } else {
+      this.client.post('http://localhost:5281/api/Zones', this.z).subscribe({
+        next: () => {
+          alert('Zone added successfully');
+          this.showModal = false; // 👈 Add this to close modal on success
+          this.z = new Zones();
+          this.loadZone();
+        },
+        error: (error) => {
+          if (error.status === 409) {
+            this.errorMessage = 'Zone already exists';
+          } else {
+            this.errorMessage = 'Something went wrong';
+          }
+        },
+      });
+    }
   }
 
   editZone(zone: any) {
+    this.z.zoneId = zone.zoneId;
     this.z.name = zone.name;
     this.z.maxcapacity = zone.maxCapacity;
     this.z.currentUsage = zone.currentUsage;

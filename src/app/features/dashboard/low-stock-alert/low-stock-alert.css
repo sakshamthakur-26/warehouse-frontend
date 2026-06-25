@@ -1,5 +1,4 @@
-/* Replicated metric-card styles (must duplicate — Angular view encapsulation
-   means the dashboard's .metric-card CSS doesn't reach into this component) */
+
 .metric-card {
   background-color: #ffffff;
   border-radius: 8px;
@@ -46,7 +45,7 @@
   color: #1e1e2f;
 }
 
-/* Tooltip + popover styles (unchanged from before) */
+
 .tooltip-container {
   position: relative;
 }

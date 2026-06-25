@@ -5,10 +5,10 @@
 
   <h2 class="title">Warehouse Zones</h2>
 
-  <button class="add-btn" (click)="showModal = true">
+  <button class="add-btn" (click)="z.zoneId = 0; showModal = true">
     Add Zone
   </button>
-  
+
 </div>
 
 <div class="search-box">
@@ -75,9 +75,9 @@
 
     <hr />
     <div class="card-footer" style="margin-top: 15px; text-align: center;">
-     <button class="add-btn" style="width: 100%;" (click)="selectedZoneId = zone.zoneId; selectedZoneName = zone.name">
-  Assign Category
-</button>
+      <button class="add-btn" style="width: 100%;" (click)="selectedZoneId = zone.zoneId; selectedZoneName = zone.name">
+        Assign Category
+      </button>
     </div>
   </div>
   }
@@ -86,7 +86,7 @@
 @if (showModal) {
 <div class="modal-overlay">
   <div class="modal">
-    <h2 class="modal-title">Add Zone</h2>
+    <h2 class="modal-title">{{ z.zoneId ? 'Edit Zone' : 'Add Zone' }}</h2>
     <div class="form">
 
       <div class="form-group">
@@ -149,7 +149,7 @@
               z.currentUsage < 0 ||
               z.currentUsage > z.maxcapacity
           " (click)="addZone()">
-        Add
+        {{ z.zoneId ? 'Update' : 'Add' }}
       </button>
     </div>
   </div>
@@ -157,9 +157,6 @@
 }
 
 @if (selectedZoneId > 0) {
-  <app-assign-category
-    [zoneId]="selectedZoneId"
-    [zoneName]="selectedZoneName"
-    (close)="selectedZoneId = 0">
-  </app-assign-category>
+<app-assign-category [zoneId]="selectedZoneId" [zoneName]="selectedZoneName" (close)="selectedZoneId = 0">
+</app-assign-category>
 }
