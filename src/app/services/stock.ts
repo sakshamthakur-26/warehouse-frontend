@@ -32,25 +32,22 @@ export class Stock {
 
   //For load Stock Table
 
-  loadAllStock(): void {
-    // We do the one-time subscription here in the service
-    console.log('Fetching stock data from API...');
-    this.http.get<StockItem[]>(this.apiURL).subscribe({
-      next: (data) => {
-        // alert('Stock data loaded successfully!');
-
-        this.stockItem.update(() => data);
-      },
-      error: (err) => console.error('Error fetching stock', err),
-    });
+  async loadAllStock(): Promise<void> {
+    try {
+      const data = await firstValueFrom(this.http.get<StockItem[]>(this.apiURL));
+      this.stockItem.set(data);
+    } catch (err) {
+      console.error('Error fetching stock', err);
+      throw err; // let caller (component) decide how to show this to the user
+    }
   }
 
   addStock(): void {
-    this.http.post<AddStock>(this.apiURL, this.AddStockItem()).subscribe({
+    this.http.post<AddStock>(this.apiURL, this.addStock).subscribe({
       next: (data) => {
         alert('Stock added successfully!');
         this.loadAllStock(); // again show the fupdated stock table after adding new stock
-        this.resetAddStockItem();
+        // this.resetAddStockItem();
       },
       error: (err) => console.error('Error adding stock', err),
     });
@@ -68,23 +65,25 @@ export class Stock {
 
   dispatchStock(): void {
     this.http
-      .patch(`${this.apiURL}/dispatch`, this.RemoveStockItem(), { responseType: 'text' })
+      .patch(`${this.apiURL}/dispatch`, this.restockItem, { responseType: 'text' })
       .subscribe({
         next: (response) => {
           alert('Stock successfully dispatched!');
           this.loadAllStock();
-
-          this.RemoveStockItem.set({ itemId: 0, quantity: 0 });
         },
         error: (err) => {
           console.error('Error dispatching stock', err);
-          // alert(err.error || 'Failed to dispatch stock.');
         },
       });
   }
 
-  async restockItem(payload: RestockPayload): Promise<void> {
-    await firstValueFrom(this.http.post(this.apiURL, payload));
-    this.loadAllStock(); // Refresh the stock list after restocking}
+  restockItem(payload: RestockPayload): void {
+    this.http.post(this.apiURL, payload).subscribe({
+      next: () => {
+        alert('Stock restocked successfully!');
+        this.loadAllStock();
+      },
+      error: (err) => console.error('Error restocking', err),
+    });
   }
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Stock } from '../../../services/stock';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-remove-stock-form',
@@ -14,12 +15,17 @@ export class RemoveStockForm implements OnInit {
     quantity: new FormControl(0, [Validators.required, Validators.min(1)]),
   });
 
-  constructor(public _stockService: Stock) {}
+  private itemIdSub?: Subscription;
 
+  public _stockService = inject(Stock);
+
+  ngOnDestroy(): void {
+    this.itemIdSub?.unsubscribe();
+  }
   ngOnInit(): void {
     console.log('in init firet');
     this._stockService.loadAllStock();
-    this.dispatchForm.get('itemId')?.valueChanges.subscribe((selectedId) => {
+    this.itemIdSub = this.dispatchForm.get('itemId')?.valueChanges.subscribe((selectedId) => {
       this.applyMaxQuantityValidator(Number(selectedId));
     });
   }
@@ -39,22 +45,24 @@ export class RemoveStockForm implements OnInit {
 
     qtyControl?.updateValueAndValidity();
   }
-  RemoveStock(): void {
+  async RemoveStock(): Promise<void> {
     if (this.dispatchForm.invalid) {
       alert('Please select an item and enter a valid quantity.');
       return;
     }
 
     const formValues = this.dispatchForm.value;
-    console.log('Dispatching stock for item ID:', formValues.itemId);
 
     this._stockService.RemoveStockItem.set({
       itemId: Number(formValues.itemId),
       quantity: Number(formValues.quantity),
     });
 
-    this._stockService.dispatchStock();
-    this._stockService.loadAllStock();
-    this.dispatchForm.reset({ itemId: 0, quantity: 0 });
+    try {
+      await this._stockService.dispatchStock();
+      this.dispatchForm.reset({ itemId: 0, quantity: 0 });
+    } catch {
+      alert('Failed to dispatch stock.');
+    }
   }
 }

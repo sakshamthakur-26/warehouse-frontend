@@ -9,7 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { InventoryManagementComponent } from '../inventory-management-component';
+
 import { Stock } from '../../../services/stock';
 
 @Component({
@@ -19,11 +19,11 @@ import { Stock } from '../../../services/stock';
   styleUrl: './add-stock-form.css',
 })
 export class AddStockForm implements OnInit {
-  constructor(
-    public _categories: Category,
-    public _vendor: VendorService ,
-    public _inventory: InventoryManagementComponent,
-  ) {}
+  
+
+  public _categories = inject(Category);
+  public _vendor = inject(VendorService);
+  public _stockService = inject(Stock);
 
   public stockService = inject(Stock);
 
@@ -52,7 +52,7 @@ export class AddStockForm implements OnInit {
 
   }
 
-  onSubmit(): void {
+  async onSubmit():Promise<void> {
     if (this.addStockForm.valid) {
       const formPayload = this.addStockForm.value;
 
@@ -64,12 +64,17 @@ export class AddStockForm implements OnInit {
         threshold: formPayload.threshold ?? 0,
       });
 
-      this.stockService.addStock();
+      try {
 
-      this.resetForm();
-    } else {
-      alert('Please fill out all required fields correctly.');
-    }
+        await this.stockService.addStock();
+        this.resetForm();
+      }
+      catch (err) {
+        console.error('Error adding stock:', err);
+        alert('Failed to add stock. Please try again.');
+      }
+
+    } 
   }
 
   resetForm(): void {
